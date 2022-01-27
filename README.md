@@ -1,3 +1,3 @@
-npm install ethers
-export NODE_OPTIONS=--openssl-legacy-provider
-npm start
+npm install ethers  
+export NODE_OPTIONS=--openssl-legacy-provider  
+npm start   
