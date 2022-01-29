@@ -8,6 +8,7 @@ const contractAddress = "0x9ec67c231ECC291f9963972C30921EB363763c37";
 function App() {
 
   const [currentAccount, setCurrentAccount] = useState(null);
+  const [value, setValue] = useState('');
 
   const checkWalletIsConnected = async () => {
     const { ethereum } = window;
@@ -46,7 +47,8 @@ function App() {
     }
   }
 
-  const mintNftHandler = async () => {
+  const mintNftHandler = async (e: any) => {
+    e.preventDefault();
     try {
       const { ethereum } = window;
 
@@ -56,7 +58,7 @@ function App() {
         const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
 
         console.log("Initialize payment");
-        let nftTxn = await nftContract.mintCharacterNFT(1);
+        let nftTxn = await nftContract.mintCharacterNFT(value);
 
         console.log("Mining... please wait");
         await nftTxn.wait();
@@ -82,9 +84,26 @@ function App() {
 
   const mintNftButton = () => {
     return (
-      <button onClick={mintNftHandler} className='cta-button mint-nft-button'>
-        Mint NFT
-      </button>
+    <div>
+        <form onSubmit={mintNftHandler}>
+        <h4>Want to try your luck?</h4>
+        <div>
+          <label>Hero ID to unlock</label>
+          <input
+            style={{ marginLeft: '1vw' }}
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+          />
+          <button class="button-82-pushable" role="button">
+            <span class="button-82-shadow"></span>
+            <span class="button-82-edge"></span>
+            <span class="button-82-front text">
+              Mint
+            </span>
+          </button>
+        </div>
+      </form>
+    </div>
     )
   }
 
