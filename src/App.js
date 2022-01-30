@@ -12,7 +12,7 @@ const StyledApp = styled.div`
 `;
 class App extends Component {
   state = {
-    theme: '',
+    theme: 'light',
     currentAccount: null,
     value: ''
   };
