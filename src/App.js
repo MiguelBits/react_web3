@@ -1,25 +1,28 @@
-import { useEffect, useState } from 'react';
 import './App.css';
 import {contractABI} from './contracts/contract_abi';
 import { ethers } from 'ethers';
 import styled, { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme, GlobalStyles } from "./themes.js";
+import { Component } from 'react/cjs/react.production.min';
 
-const contractAddress = "0xC68FA279948d38027EE84a3aD1737137BdA5ac5D";
+const contractAddress = "0xb28D6A49A5eAc0E7B2eD1284614d38BDE69b5Bc8";
 
 const StyledApp = styled.div`
   color: ${(props) => props.theme.fontColor};
 `;
-function App() {
-  const [theme, setTheme] = useState("light");
-  const [currentAccount, setCurrentAccount] = useState(null);
-  const [value, setValue] = useState('');
-
-  const themeToggler = () => {
-    theme === "light" ? setTheme("dark") : setTheme("light");
+class App extends Component {
+  state = {
+    theme: '',
+    currentAccount: null,
+    value: ''
   };
 
-  const checkWalletIsConnected = async () => {
+
+  themeToggler = () => {
+    this.state.theme === "light" ? this.setState({ theme: "dark" }) : this.setState({ theme:"light" });
+  };
+
+  checkWalletIsConnected = async () => {
     const { ethereum } = window;
 
     if (!ethereum) {
@@ -34,13 +37,14 @@ function App() {
     if (accounts.length !== 0) {
       const account = accounts[0];
       console.log("Found an authorized account: ", account);
-      setCurrentAccount(account);
+      this.setState({currentAccount: account});
     } else {
       console.log("No authorized account found");
     }
+    
   }
 
-  const connectWalletHandler = async () => {
+  connectWalletHandler = async () => {
     const { ethereum } = window;
 
     if (!ethereum) {
@@ -50,13 +54,13 @@ function App() {
     try {
       const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
       console.log("Found an account! Address: ", accounts[0]);
-      setCurrentAccount(accounts[0]);
+      this.setState({accounts:accounts[0]});
     } catch (err) {
       console.log(err)
     }
   }
 
-  const mintNftHandler = async (e: any) => {
+  mintNftHandler = async (e: any) => {
     e.preventDefault();
     try {
       const { ethereum } = window;
@@ -67,7 +71,7 @@ function App() {
         const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
 
         console.log("Initialize payment");
-        let nftTxn = await nftContract.finishMint(value);
+        let nftTxn = await nftContract.finishMint(this.state.value);
 
         console.log("Mining... please wait");
         await nftTxn.wait();
@@ -84,25 +88,25 @@ function App() {
     }
   }
 
-  const connectWalletButton = () => {
+  connectWalletButton = () => {
     return (
-      <button onClick={connectWalletHandler} className='cta-button connect-wallet-button'>
+      <button onClick={this.connectWalletHandler} className='cta-button connect-wallet-button'>
         Connect Wallet
       </button>
     )
   }
 
-  const mintNftButton = () => {
+  mintNftButton = () => {
     return (
     <div>
-        <form onSubmit={mintNftHandler}>
+        <form onSubmit={this.mintNftHandler}>
         <h4>Want to try your luck?</h4>
         <div>
           <label>Token ID to unlock</label>
           <input
             style={{ marginLeft: '1vw' }}
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
+            value={this.state.value}
+            onChange={(e) => this.setState({value: e.target.value})}
           />
           <button class="button-82-pushable" role="button">
             <span class="button-82-shadow"></span>
@@ -116,28 +120,50 @@ function App() {
     </div>
     )
   }
-  
-  useEffect(() => {
-    checkWalletIsConnected();
-  }, [])
-//dark theme implementation
-  return (
-    <div className='main-app'>
-      <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
-        <GlobalStyles />
-        <StyledApp>
-          <h1>React Web3 Tutorial</h1>
-          
-          <div>
-            {currentAccount ? mintNftButton() : connectWalletButton()}
-          </div>
-          <button class="button-moon" onClick={() => themeToggler()}></button>
-        </StyledApp>
-    </ThemeProvider>
+  collectionNftHandler = async () => {
+    try {
+      const { ethereum } = window;
 
-      
-    </div>
-  )
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
+
+        let data = await nftContract.nftAccount();
+        const arr = data.map(data => <h2>{data}</h2>);
+        return (<div >{arr}</div>);
+
+      } else {
+        console.log("Ethereum object does not exist");
+      }
+
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  
+  componentDidMount = () => {
+    this.checkWalletIsConnected();
+  };
+//dark theme implementation
+  render(){
+    return (
+      <div className='main-app'>
+        <ThemeProvider theme={this.state.theme === "light" ? lightTheme : darkTheme}>
+          <GlobalStyles />
+          <StyledApp>
+            <h1>React Web3 Tutorial</h1>
+            
+            <div>
+              {this.state.currentAccount ? this.mintNftButton() : this.connectWalletButton()}
+            </div>
+            <button class="button-moon" onClick={() => this.themeToggler()}></button>
+          </StyledApp>
+        </ThemeProvider>
+
+      </div>
+    )
+  }
 }
 
 export default App;
