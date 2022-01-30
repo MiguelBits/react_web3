@@ -16,7 +16,9 @@ class App extends Component {
     theme: 'light',
     currentAccount: null,
     value: '',
-    nft_array: []
+    nft_array_id: [],
+    nft_array_name: [],
+    nft_array_img: []
   };
 
 
@@ -133,11 +135,20 @@ class App extends Component {
       const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
 
       let data = await nftContract.nftAccount();
-
+      // get NFT metadata
       for(var i = 0;i<=data.length-1;i++){
+        this.state.nft_array_id.push(data[i].toNumber());
         const pushed = nftContract.getNFT(data[i].toNumber());
         pushed.then(result => {
-          this.state.nft_array.push(result);
+          this.state.nft_array_name.push(result);
+          fetch("https://raw.githubusercontent.com/mcruzvas/react_web3/main/metadata/"+result.toString()+".json")
+            .then(response => response.json())
+            .then((jsonData) => {
+              this.state.nft_array_img.push(jsonData.image)
+            })
+        }).catch((error) => {
+          // handle your errors here
+          console.error(error)
         })
       }
 
@@ -148,10 +159,10 @@ class App extends Component {
   
   componentDidMount = () => {
     this.checkWalletIsConnected();
-    
+
     //nft collection array
     this.collectionNftHandler();
-    console.log(this.state.nft_array)
+    //console.log(this.state.nft_array_name)
   };
 //dark theme implementation
   render(){
@@ -166,9 +177,10 @@ class App extends Component {
               {this.state.currentAccount ? this.mintNftButton() : this.connectWalletButton()}
             </div>
             <button class="button-moon" onClick={() => this.themeToggler()}></button>
+            <Collection nft_array_id={this.state.nft_array_id} nft_array_name={this.state.nft_array_name} nft_array_img={this.state.nft_array_img}></Collection>
+
           </StyledApp>
         </ThemeProvider>
-        <Collection nft_array={this.state.nft_array}></Collection>
       </div>
     )
   }
