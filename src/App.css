@@ -125,3 +125,20 @@
 .button-82-pushable:focus:not(:focus-visible) {
   outline: none;
 }
+.button-moon {
+  font-size: 4rem;
+}
+.button-moon::before {
+  content: "🌑";
+  animation: moon 2s infinite;
+}
+@keyframes moon {
+  12.5% { content: "🌑" }
+  25%   { content: "🌒" }
+  37.5% { content: "🌓" }
+  50%   { content: "🌔" }
+  62.5% { content: "🌕" }
+  75%   { content: "🌖" }
+  87.5% { content: "🌗" }
+  100%  { content: "🌘" }
+}

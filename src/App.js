@@ -2,13 +2,22 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import {contractABI} from './contracts/contract_abi';
 import { ethers } from 'ethers';
+import styled, { ThemeProvider } from "styled-components";
+import { lightTheme, darkTheme, GlobalStyles } from "./themes.js";
 
 const contractAddress = "0xC68FA279948d38027EE84a3aD1737137BdA5ac5D";
 
+const StyledApp = styled.div`
+  color: ${(props) => props.theme.fontColor};
+`;
 function App() {
-
+  const [theme, setTheme] = useState("light");
   const [currentAccount, setCurrentAccount] = useState(null);
   const [value, setValue] = useState('');
+
+  const themeToggler = () => {
+    theme === "light" ? setTheme("dark") : setTheme("light");
+  };
 
   const checkWalletIsConnected = async () => {
     const { ethereum } = window;
@@ -107,18 +116,26 @@ function App() {
     </div>
     )
   }
-
+  
   useEffect(() => {
     checkWalletIsConnected();
   }, [])
-
+//dark theme implementation
   return (
     <div className='main-app'>
-      <h1>React Web3 Tutorial</h1>
+      <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+        <GlobalStyles />
+        <StyledApp>
+          <h1>React Web3 Tutorial</h1>
+          
+          <div>
+            {currentAccount ? mintNftButton() : connectWalletButton()}
+          </div>
+          <button class="button-moon" onClick={() => themeToggler()}></button>
+        </StyledApp>
+    </ThemeProvider>
+
       
-      <div>
-        {currentAccount ? mintNftButton() : connectWalletButton()}
-      </div>
     </div>
   )
 }
