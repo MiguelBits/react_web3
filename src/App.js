@@ -4,6 +4,7 @@ import { ethers } from 'ethers';
 import styled, { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme, GlobalStyles } from "./themes.js";
 import { Component } from 'react/cjs/react.production.min';
+import Collection from "./components/Collection"
 
 const contractAddress = "0xb28D6A49A5eAc0E7B2eD1284614d38BDE69b5Bc8";
 
@@ -14,7 +15,8 @@ class App extends Component {
   state = {
     theme: 'light',
     currentAccount: null,
-    value: ''
+    value: '',
+    nft_array: []
   };
 
 
@@ -58,6 +60,7 @@ class App extends Component {
     } catch (err) {
       console.log(err)
     }
+    
   }
 
   mintNftHandler = async (e: any) => {
@@ -121,29 +124,34 @@ class App extends Component {
     )
   }
   collectionNftHandler = async () => {
-    try {
-      const { ethereum } = window;
 
-      if (ethereum) {
-        const provider = new ethers.providers.Web3Provider(ethereum);
-        const signer = provider.getSigner();
-        const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
+    const { ethereum } = window;
 
-        let data = await nftContract.nftAccount();
-        const arr = data.map(data => <h2>{data}</h2>);
-        return (<div >{arr}</div>);
+    if (ethereum) {
+      const provider = new ethers.providers.Web3Provider(ethereum);
+      const signer = provider.getSigner();
+      const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
 
-      } else {
-        console.log("Ethereum object does not exist");
+      let data = await nftContract.nftAccount();
+
+      for(var i = 0;i<=data.length-1;i++){
+        const pushed = nftContract.getNFT(data[i].toNumber());
+        pushed.then(result => {
+          this.state.nft_array.push(result);
+        })
       }
 
-    } catch (err) {
-      console.log(err);
+    } else {
+      console.log("Ethereum object does not exist");
     }
-  }
+}
   
   componentDidMount = () => {
     this.checkWalletIsConnected();
+    
+    //nft collection array
+    this.collectionNftHandler();
+    console.log(this.state.nft_array)
   };
 //dark theme implementation
   render(){
@@ -160,7 +168,7 @@ class App extends Component {
             <button class="button-moon" onClick={() => this.themeToggler()}></button>
           </StyledApp>
         </ThemeProvider>
-
+        <Collection nft_array={this.state.nft_array}></Collection>
       </div>
     )
   }
