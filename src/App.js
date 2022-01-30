@@ -3,7 +3,7 @@ import './App.css';
 import {contractABI} from './contracts/contract_abi';
 import { ethers } from 'ethers';
 
-const contractAddress = "0x9ec67c231ECC291f9963972C30921EB363763c37";
+const contractAddress = "0xC68FA279948d38027EE84a3aD1737137BdA5ac5D";
 
 function App() {
 
@@ -58,12 +58,13 @@ function App() {
         const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
 
         console.log("Initialize payment");
-        let nftTxn = await nftContract.mintCharacterNFT(value);
+        let nftTxn = await nftContract.finishMint(value);
 
         console.log("Mining... please wait");
         await nftTxn.wait();
 
         console.log(`Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`);
+        
 
       } else {
         console.log("Ethereum object does not exist");
@@ -88,7 +89,7 @@ function App() {
         <form onSubmit={mintNftHandler}>
         <h4>Want to try your luck?</h4>
         <div>
-          <label>Hero ID to unlock</label>
+          <label>Token ID to unlock</label>
           <input
             style={{ marginLeft: '1vw' }}
             value={value}
