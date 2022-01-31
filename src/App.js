@@ -16,9 +16,10 @@ class App extends Component {
     theme: 'light',
     currentAccount: null,
     value: '',
-    nft_array_id: [],
-    nft_array_name: [],
-    nft_array_img: []
+    collection_tokenId: [],
+    collection_tokenName: [],
+    collection_tokenImg: [],
+    collection_tokenDescription: []
   };
 
 
@@ -126,7 +127,7 @@ class App extends Component {
     )
   }
   collectionNftHandler = async () => {
-
+    //console.log("handling nft collection")
     const { ethereum } = window;
 
     if (ethereum) {
@@ -137,17 +138,35 @@ class App extends Component {
       let data = await nftContract.nftAccount();
       // get NFT metadata
       for(var i = 0;i<=data.length-1;i++){
-        //get tokenId => data[i].toNumber()
-        this.state.nft_array_id.push(data[i].toNumber());
-        //get tokenName => nftContract.getNFT(data[i].toNumber())
+        const array_nft_attributes = [];
+        array_nft_attributes.push(data[i].toString())
+        //0-get tokenId => data[i].toNumber()
+        //1-get tokenImg => jsonData.image
+        //2-get tokenName => nftContract.getNFT(data[i].toNumber())
+
         const pushed = nftContract.getNFT(data[i].toNumber());
         pushed.then(result => {
-          this.state.nft_array_name.push(result);
+          //console.log("https://raw.githubusercontent.com/mcruzvas/react_web3/main/metadata/"+result.toString()+".json")
           fetch("https://raw.githubusercontent.com/mcruzvas/react_web3/main/metadata/"+result.toString()+".json")
             .then(response => response.json())
             .then((jsonData) => {
-            //get tokenImg => jsonData.image
-              this.state.nft_array_img.push(jsonData.image)
+              array_nft_attributes.push(jsonData.image)
+              array_nft_attributes.push(result.toString())
+              array_nft_attributes.push(jsonData.description)
+              //update local storage listed by tokenId
+              const previous_state_tokenId = this.state.collection_tokenId;
+              const updated_state_nft_tokenId = previous_state_tokenId.concat(array_nft_attributes[0])
+              this.setState({collection_tokenId: updated_state_nft_tokenId})
+              const previous_state_tokenImg= this.state.collection_tokenImg;
+              const updated_state_nft_tokenImg = previous_state_tokenImg.concat(array_nft_attributes[1])
+              this.setState({collection_tokenImg: updated_state_nft_tokenImg})
+              const previous_state_tokenName = this.state.collection_tokenName;
+              const updated_state_nft_tokenName = previous_state_tokenName.concat(array_nft_attributes[2])
+              this.setState({collection_tokenName: updated_state_nft_tokenName})
+              const previous_state_tokenDescription = this.state.collection_tokenDescription;
+              const updated_state_nft_tokenDescription = previous_state_tokenId.concat(array_nft_attributes[3])
+              this.setState({collection_tokenDescription: updated_state_nft_tokenDescription})
+
             })
         }).catch((error) => {
           // handle your errors here
@@ -162,11 +181,16 @@ class App extends Component {
   
   componentDidMount = () => {
     this.checkWalletIsConnected();
-
     //nft collection array
-    this.collectionNftHandler();
-    //console.log(this.state.nft_array_name)
+    this.collectionNftHandler()
   };
+  componentWillUpdate() {
+    //console.log(this.state.collection_tokenId)
+    //console.log(this.state.collection_tokenName)
+    //console.log(this.state.collection_tokenImg)
+  }
+  
+
 //dark theme implementation
   render(){
     return (
@@ -175,13 +199,38 @@ class App extends Component {
           <GlobalStyles />
           <StyledApp>
             <h1>React Web3 Tutorial</h1>
-            
             <div>
               {this.state.currentAccount ? this.mintNftButton() : this.connectWalletButton()}
             </div>
             <button class="button-moon" onClick={() => this.themeToggler()}></button>
-            <Collection nft_array_id={this.state.nft_array_id} nft_array_name={this.state.nft_array_name} nft_array_img={this.state.nft_array_img}></Collection>
+            <h3>Publishing List</h3>
+            <table className='table mt-4'>
+              <thead>
+                <tr>
+                  <th>Name:{
+                this.state.collection_tokenName.map(
+                  (item,i) => {
+                    return<li>{item}</li>
+                  })
+                }</th>
+                  <th>Image:                 {
+                this.state.collection_tokenImg.map(
+                  (item,i) => {
+                    return<img src={item} key={i} width="100"></img>
+                  })
+                }</th>
+                  <th>Description:{
+                this.state.collection_tokenDescription.map(
+                  (item,i) => {
+                    return<li>{item}</li>
+                  })
+                }</th>
+                </tr>
+              </thead>
+              <tbody>
 
+              </tbody>
+            </table>
           </StyledApp>
         </ThemeProvider>
       </div>
