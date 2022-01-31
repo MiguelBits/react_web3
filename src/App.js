@@ -137,13 +137,16 @@ class App extends Component {
       let data = await nftContract.nftAccount();
       // get NFT metadata
       for(var i = 0;i<=data.length-1;i++){
+        //get tokenId => data[i].toNumber()
         this.state.nft_array_id.push(data[i].toNumber());
+        //get tokenName => nftContract.getNFT(data[i].toNumber())
         const pushed = nftContract.getNFT(data[i].toNumber());
         pushed.then(result => {
           this.state.nft_array_name.push(result);
           fetch("https://raw.githubusercontent.com/mcruzvas/react_web3/main/metadata/"+result.toString()+".json")
             .then(response => response.json())
             .then((jsonData) => {
+            //get tokenImg => jsonData.image
               this.state.nft_array_img.push(jsonData.image)
             })
         }).catch((error) => {
