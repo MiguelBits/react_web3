@@ -4,7 +4,6 @@ import { ethers } from 'ethers';
 import styled, { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme, GlobalStyles } from "./themes.js";
 import { Component } from 'react/cjs/react.production.min';
-import Collection from "./components/Collection"
 
 const contractAddress = "0xb28D6A49A5eAc0E7B2eD1284614d38BDE69b5Bc8";
 
@@ -104,13 +103,13 @@ class App extends Component {
 
   mintNftButton = () => {
     return (
-    <div>
+    <div id="form_overlay" className='shadow sm:rounded-lg'>
         <form onSubmit={this.mintNftHandler}>
-        <h4>Want to try your luck?</h4>
         <div>
-          <label>Token ID to unlock</label>
+          <label>Token ID to unlock   </label>
           <input
-            style={{ marginLeft: '1vw' }}
+            className='shadow sm:rounded-lg'
+            id='form_input'
             value={this.state.value}
             onChange={(e) => this.setState({value: e.target.value})}
           />
@@ -164,7 +163,7 @@ class App extends Component {
               const updated_state_nft_tokenName = previous_state_tokenName.concat(array_nft_attributes[2])
               this.setState({collection_tokenName: updated_state_nft_tokenName})
               const previous_state_tokenDescription = this.state.collection_tokenDescription;
-              const updated_state_nft_tokenDescription = previous_state_tokenId.concat(array_nft_attributes[3])
+              const updated_state_nft_tokenDescription = previous_state_tokenDescription.concat(array_nft_attributes[3])
               this.setState({collection_tokenDescription: updated_state_nft_tokenDescription})
 
             })
@@ -195,42 +194,60 @@ class App extends Component {
   render(){
     return (
       <div className='main-app'>
+        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"></link>
         <ThemeProvider theme={this.state.theme === "light" ? lightTheme : darkTheme}>
           <GlobalStyles />
           <StyledApp>
             <h1>React Web3 Tutorial</h1>
-            <div>
+            <h4>Want to try your luck?</h4>
+            <div >
               {this.state.currentAccount ? this.mintNftButton() : this.connectWalletButton()}
             </div>
             <button class="button-moon" onClick={() => this.themeToggler()}></button>
             <h3>Publishing List</h3>
-            <table className='table mt-4'>
-              <thead>
-                <tr>
-                  <th>Name:{
-                this.state.collection_tokenName.map(
-                  (item,i) => {
-                    return<li>{item}</li>
-                  })
-                }</th>
-                  <th>Image:                 {
-                this.state.collection_tokenImg.map(
-                  (item,i) => {
-                    return<img src={item} key={i} width="100"></img>
-                  })
-                }</th>
-                  <th>Description:{
-                this.state.collection_tokenDescription.map(
-                  (item,i) => {
-                    return<li>{item}</li>
-                  })
-                }</th>
-                </tr>
-              </thead>
-              <tbody>
-
-              </tbody>
-            </table>
+            <div className="flex flex-col mt-8">
+              <div style={{backgroundColor: '#9197AE' }} className="shadow sm:rounded-lg py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+                <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
+                  <table className="min-w-full">
+                    <thead>
+                      <tr>
+                        <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Image:</th>
+                        <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Name:                 </th>
+                        <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Description:</th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white">
+                        {//map IMAGE
+                          this.state.collection_tokenImg.map(
+                            (item,i) => {
+                              return(
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="flex items-center">
+                                            <div className="flex-shrink-0 w-10 h-10">
+                                            <img className="w-10 h-10" src={item} key={i}></img>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                      <div className="flex items-center">
+                                          {this.state.collection_tokenName ? this.state.collection_tokenName[i] : ""}
+                                      </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                      <div className="flex items-center">
+                                        <span className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">{this.state.collection_tokenDescription ? this.state.collection_tokenDescription[i] : ""}</span>
+                                      </div>
+                                    </td>
+                                </tr>
+                              )
+                            })
+                        }
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
           </StyledApp>
         </ThemeProvider>
       </div>

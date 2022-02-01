@@ -1,3 +1,12 @@
+/*
+html{
+  background-color: #FFFD98;
+}
+
+#root{
+  background-color: #FFFD98;
+}
+*/
 .main-app {
     text-align: center;
     margin: 100px;
@@ -141,4 +150,10 @@
   75%   { content: "🌖" }
   87.5% { content: "🌗" }
   100%  { content: "🌘" }
+}
+#form_overlay{
+  background-color: #273043; 
+}
+#form_input{
+  background-color: #9197AE;
 }
