@@ -83,6 +83,30 @@ export const contractABI = [
 		"inputs": [
 			{
 				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "NFTsAtAddress",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
 				"name": "to",
 				"type": "address"
 			},
@@ -120,57 +144,13 @@ export const contractABI = [
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "",
+				"name": "i",
 				"type": "uint256"
 			}
 		],
-		"name": "defaultCharacters",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "characterIndex",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "imageURI",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "hp",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "maxHp",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "attackDamage",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "get",
-		"outputs": [
-			{
-				"internalType": "uint256[]",
-				"name": "arrNFTs",
-				"type": "uint256[]"
-			}
-		],
-		"stateMutability": "view",
+		"name": "finishMint",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -187,6 +167,25 @@ export const contractABI = [
 				"internalType": "address",
 				"name": "",
 				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "getNFT",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
 			}
 		],
 		"stateMutability": "view",
@@ -217,19 +216,6 @@ export const contractABI = [
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_characterIndex",
-				"type": "uint256"
-			}
-		],
-		"name": "mintCharacterNFT",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [],
 		"name": "name",
 		"outputs": [
@@ -243,68 +229,13 @@ export const contractABI = [
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "nftHolderAttributes",
+		"inputs": [],
+		"name": "nftAccount",
 		"outputs": [
 			{
-				"internalType": "uint256",
-				"name": "characterIndex",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "imageURI",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "hp",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "maxHp",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "attackDamage",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "nftHolders",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
+				"internalType": "uint256[]",
+				"name": "arr",
+				"type": "uint256[]"
 			}
 		],
 		"stateMutability": "view",
@@ -434,7 +365,36 @@ export const contractABI = [
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "_tokenId",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "tokenIdToNFT",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "imageURI",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "stars",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
 				"type": "uint256"
 			}
 		],
