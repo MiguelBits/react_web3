@@ -161,7 +161,14 @@ html{
 }
 #form_overlay{
   background-color: #273043; 
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 0px;
+  padding-right: 40px;
 }
 #form_input{
-  background-color: #9197AE;
+  background-color: #ffffff;
+}
+#unlock{
+  color:white;
 }

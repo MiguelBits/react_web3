@@ -106,7 +106,7 @@ class App extends Component {
     <div id="form_overlay" className='shadow sm:rounded-lg'>
         <form onSubmit={this.mintNftHandler}>
         <div>
-          <label>Token ID to unlock   </label>
+          <label id="unlock">Token ID to unlock   </label>
           <input
             className='shadow sm:rounded-lg'
             id='form_input'
