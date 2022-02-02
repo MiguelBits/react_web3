@@ -1,4 +1,5 @@
-# npm install ethers  
+#react with web3
+npm install ethers  
 export NODE_OPTIONS=--openssl-legacy-provider  
 npm start   
 ## Preview
