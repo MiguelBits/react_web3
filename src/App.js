@@ -205,48 +205,28 @@ class App extends Component {
             </div>
             <button class="button-moon" onClick={() => this.themeToggler()}></button>
             <h3>Publishing List</h3>
-            <div className="flex flex-col mt-8">
-              <div style={{backgroundColor: '#9197AE' }} className="shadow sm:rounded-lg py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-                <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
-                  <table className="min-w-full">
-                    <thead>
-                      <tr>
-                        <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Image:</th>
-                        <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Name:                 </th>
-                        <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Description:</th>
-                      </tr>
-                    </thead>
-                    <tbody className="bg-white">
-                        {//map IMAGE
-                          this.state.collection_tokenImg.map(
-                            (item,i) => {
-                              return(
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="flex items-center">
-                                            <div className="flex-shrink-0 w-10 h-10">
-                                            <img className="w-10 h-10" src={item} key={i}></img>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                      <div className="flex items-center">
-                                          {this.state.collection_tokenName ? this.state.collection_tokenName[i] : ""}
-                                      </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                      <div className="flex items-center">
-                                        <span className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">{this.state.collection_tokenDescription ? this.state.collection_tokenDescription[i] : ""}</span>
-                                      </div>
-                                    </td>
-                                </tr>
-                              )
-                            })
-                        }
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+            <div class="wrap">
+        
+              {this.state.collection_tokenImg.map(
+                (item,i) => {
+                  return(
+                      <div id="container" class="box">
+                        <div class="titleBox">
+                            {/*Name*/}
+                            {this.state.collection_tokenName ? this.state.collection_tokenName[i] : ""}
+                        </div>
+                        <div class="boxInner">
+                          {/*Image*/}
+                          <img class="image_nft" src={item} key={i}></img>
+                        </div>
+                        <div class="middle">
+                          {/*Description*/}
+                          <div className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">{this.state.collection_tokenDescription ? this.state.collection_tokenDescription[i] : ""}</div>
+                        </div>
+                      </div>
+                  )
+                })
+              }
             </div>
           </StyledApp>
         </ThemeProvider>
