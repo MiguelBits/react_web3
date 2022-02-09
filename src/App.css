@@ -1,12 +1,27 @@
-/*
+
 html{
-  background-color: #FFFD98;
+  background-image: url("https://wallpaperaccess.com/full/130220.jpg")
 }
 
 #root{
-  background-color: #FFFD98;
+  background-image: url("https://wallpaperaccess.com/full/130220.jpg")
 }
-*/
+
+.neon-title-app {
+  font-size: xx-large;
+  color: #fff;
+  text-shadow:
+    0 0 5px #fff,
+    0 0 10px #fff,
+    0 0 20px #fff,
+    0 0 40px #0ff,
+    0 0 80px #0ff,
+    0 0 90px #0ff,
+    0 0 100px #0ff,
+    0 0 150px #0ff;
+}
+
+
 .main-app {
     text-align: center;
     margin: 100px;
@@ -142,23 +157,7 @@ html{
 .button-82-pushable:focus:not(:focus-visible) {
   outline: none;
 }
-.button-moon {
-  font-size: 4rem;
-}
-.button-moon::before {
-  content: "🌑";
-  animation: moon 2s infinite;
-}
-@keyframes moon {
-  12.5% { content: "🌑" }
-  25%   { content: "🌒" }
-  37.5% { content: "🌓" }
-  50%   { content: "🌔" }
-  62.5% { content: "🌕" }
-  75%   { content: "🌖" }
-  87.5% { content: "🌗" }
-  100%  { content: "🌘" }
-}
+
 #form_overlay{
   background-color: #273043; 
   padding-top: 10px;
@@ -178,11 +177,15 @@ body {
   font: 10px/13px 'Lucida Sans',sans-serif;
 }
 .wrap {
+  border-radius: 25px;
+  border: 2px solid #a30000;
+  background-color: #273043;
+  padding-top: 50px;
   overflow: hidden;
-  margin: 10px;
-max-width: 1500px;
-margin-left: auto;
-margin-right: auto;
+  margin: 50px;
+  max-width: 1500px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .box {
   float: left;
@@ -195,7 +198,7 @@ margin-right: auto;
   position: absolute;
   left: 10px;
   right: 10px;
-  top: 10px;
+  top: 50px;
   bottom: 10px;
   overflow: hidden;
 }
@@ -231,7 +234,6 @@ margin-right: auto;
   }
 }
 
-
 .image_nft {
   opacity: 1;
   display: block;
@@ -259,9 +261,37 @@ margin-right: auto;
   opacity: 1;
 }
 
-.description {
-  background-color: #04AA6D;
-  color: white;
-  font-size: 16px;
-  padding: 16px 32px;
+#description {
+  display:flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.nft_name_title
+{
+  margin-top: -50px;
+  text-transform: uppercase;
+  background-image: linear-gradient(
+    -225deg,
+    #231557 0%,
+    #44107a 29%,
+    #ff1361 67%,
+    #fff800 100%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 2s linear infinite;
+  display: inline-block;
+      font-size: 20px;
+}
+
+@keyframes textclip {
+  to {
+    background-position: 200% center;
+  }
 }

@@ -1,8 +1,7 @@
 import './App.css';
 import {contractABI} from './contracts/contract_abi';
 import { ethers } from 'ethers';
-import styled, { ThemeProvider } from "styled-components";
-import { lightTheme, darkTheme, GlobalStyles } from "./themes.js";
+import styled from "styled-components";
 import { Component } from 'react/cjs/react.production.min';
 
 const contractAddress = "0xb28D6A49A5eAc0E7B2eD1284614d38BDE69b5Bc8";
@@ -12,19 +11,14 @@ const StyledApp = styled.div`
 `;
 class App extends Component {
   state = {
-    theme: 'light',
     currentAccount: null,
-    value: '',
+    mint_value: '',
     collection_tokenId: [],
     collection_tokenName: [],
     collection_tokenImg: [],
     collection_tokenDescription: []
   };
 
-
-  themeToggler = () => {
-    this.state.theme === "light" ? this.setState({ theme: "dark" }) : this.setState({ theme:"light" });
-  };
 
   checkWalletIsConnected = async () => {
     const { ethereum } = window;
@@ -76,7 +70,7 @@ class App extends Component {
         const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
 
         console.log("Initialize payment");
-        let nftTxn = await nftContract.finishMint(this.state.value);
+        let nftTxn = await nftContract.finishMint(this.state.mint_value);
 
         console.log("Mining... please wait");
         await nftTxn.wait();
@@ -110,8 +104,8 @@ class App extends Component {
           <input
             className='shadow sm:rounded-lg'
             id='form_input'
-            value={this.state.value}
-            onChange={(e) => this.setState({value: e.target.value})}
+            mint_value={this.state.mint_value}
+            onChange={(e) => this.setState({mint_value: e.target.mint_value})}
           />
           <button class="button-82-pushable" role="button">
             <span class="button-82-shadow"></span>
@@ -194,12 +188,9 @@ class App extends Component {
   render(){
     return (
       <div className='main-app'>
+        
         <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"></link>
-        <ThemeProvider theme={this.state.theme === "light" ? lightTheme : darkTheme}>
-          <GlobalStyles />
-          <StyledApp>
-            <h1>React Web3 Tutorial</h1>
-            <h4>Want to try your luck?</h4>
+            <h1 class="neon-title-app">NFT Galaxy</h1>
             <div >
               {this.state.currentAccount ? this.mintNftButton() : this.connectWalletButton()}
             </div>
@@ -210,10 +201,11 @@ class App extends Component {
               {this.state.collection_tokenImg.map(
                 (item,i) => {
                   return(
+                    <div>
                       <div id="container" class="box">
-                        <div class="titleBox">
+                        <div class="nft_name_title" >
                             {/*Name*/}
-                            {this.state.collection_tokenName ? this.state.collection_tokenName[i] : ""}
+                            <a href={"https://testnets.opensea.io/assets/0xb28D6A49A5eAc0E7B2eD1284614d38BDE69b5Bc8/"+this.state.collection_tokenId[i]}>{this.state.collection_tokenName ? this.state.collection_tokenName[i] : ""}</a>
                         </div>
                         <div class="boxInner">
                           {/*Image*/}
@@ -221,15 +213,18 @@ class App extends Component {
                         </div>
                         <div class="middle">
                           {/*Description*/}
-                          <div className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">{this.state.collection_tokenDescription ? this.state.collection_tokenDescription[i] : ""}</div>
+                          <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">{this.state.collection_tokenDescription ? this.state.collection_tokenDescription[i] : ""}</div>
+                          {/*Attributes*/}
+                          <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">{this.state.collection_tokenDescription ? this.state.collection_tokenDescription[i] : ""}</div>
+                          {/*Attributes*/}
+                          <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">{this.state.collection_tokenDescription ? this.state.collection_tokenDescription[i] : ""}</div>
                         </div>
                       </div>
+                    </div>
                   )
                 })
               }
             </div>
-          </StyledApp>
-        </ThemeProvider>
       </div>
     )
   }
