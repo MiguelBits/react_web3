@@ -188,14 +188,18 @@ class App extends Component {
   render(){
     return (
       <div className='main-app'>
-        
+        <div id="navbar">
+          <a href="#home">Home</a>
+          <a href="#news">News</a>
+          <a href="#collection">Collection</a>
+        </div> 
         <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"></link>
             <h1 class="neon-title-app">NFT Galaxy</h1>
+
             <div >
               {this.state.currentAccount ? this.mintNftButton() : this.connectWalletButton()}
             </div>
-            <button class="button-moon" onClick={() => this.themeToggler()}></button>
-            <h3>Publishing List</h3>
+
             <div class="wrap">
         
               {this.state.collection_tokenImg.map(
@@ -203,9 +207,11 @@ class App extends Component {
                   return(
                     <div>
                       <div id="container" class="box">
-                        <div class="nft_name_title" >
-                            {/*Name*/}
-                            <a href={"https://testnets.opensea.io/assets/0xb28D6A49A5eAc0E7B2eD1284614d38BDE69b5Bc8/"+this.state.collection_tokenId[i]}>{this.state.collection_tokenName ? this.state.collection_tokenName[i] : ""}</a>
+                        <div id="block-name">
+                          <div class="nft_name_title" >
+                              {/*Name*/}
+                              <a href={"https://testnets.opensea.io/assets/0xb28D6A49A5eAc0E7B2eD1284614d38BDE69b5Bc8/"+this.state.collection_tokenId[i]}>{this.state.collection_tokenName ? this.state.collection_tokenName[i] : ""}</a>
+                          </div>
                         </div>
                         <div class="boxInner">
                           {/*Image*/}

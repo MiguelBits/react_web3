@@ -7,6 +7,47 @@ html{
   background-image: url("https://wallpaperaccess.com/full/130220.jpg")
 }
 
+/* Style the navbar */
+#navbar {
+  overflow: hidden;
+  background-color: #273043;
+  position:fixed;
+  left:0;
+  top:0;
+  right:0;
+  text-align:right;
+  border-radius: 25px;
+  border: 2px solid #5e2f2f;
+  
+}
+/* Navbar links */
+#navbar a {
+  float: center;
+  display: inline;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 250px;
+  text-shadow:
+  0 0 5px rgb(243, 7, 7),
+  0 0 10px rgb(246, 5, 5),
+  0 0 20px rgb(207, 1, 1),
+  0 0 40px rgb(174, 4, 4),
+  0 0 80px rgb(180, 16, 16),
+  0 0 90px rgb(172, 4, 4),
+  0 0 100px rgb(107, 4, 4),
+  0 0 150px rgb(87, 2, 2);
+}
+/* The sticky class is added to the navbar with JS when it reaches its scroll position */
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .content {
+  padding-top: 60px;
+}
+
 .neon-title-app {
   font-size: xx-large;
   color: #fff;
@@ -19,6 +60,7 @@ html{
     0 0 90px #0ff,
     0 0 100px #0ff,
     0 0 150px #0ff;
+    
 }
 
 
@@ -179,7 +221,7 @@ body {
 .wrap {
   border-radius: 25px;
   border: 2px solid #a30000;
-  background-color: #273043;
+  background-color: #00000093;
   padding-top: 50px;
   overflow: hidden;
   margin: 50px;
@@ -241,7 +283,14 @@ body {
   transition: .5s ease;
   backface-visibility: hidden;
 }
-
+/*
+#block-name{
+  background: #00000079;
+  margin-right: 10px;
+  padding-top: 10px;
+  margin-left: 10px;
+}
+*/
 .middle {
   transition: .5s ease;
   opacity: 0;
@@ -287,7 +336,7 @@ body {
   -webkit-text-fill-color: transparent;
   animation: textclip 2s linear infinite;
   display: inline-block;
-      font-size: 20px;
+  font-size: 20px;
 }
 
 @keyframes textclip {
