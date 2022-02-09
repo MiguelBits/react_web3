@@ -1,0 +1,40 @@
+<table className="min-w-full">
+                    <thead>
+                      <tr>
+                        <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Image:</th>
+                        <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Name:                 </th>
+                        <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Description:</th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white">
+                        {//map IMAGE
+                          this.state.collection_tokenImg.map(
+                            (item,i) => {
+                              return(
+                                <tr>
+                                    {/*Image*/}
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="flex items-center">
+                                            <div className="flex-shrink-0 w-10 h-10">
+                                            <img className="w-10 h-10" src={item} key={i}></img>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    {/*Name*/}
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                      <div className="flex items-center">
+                                          {this.state.collection_tokenName ? this.state.collection_tokenName[i] : ""}
+                                      </div>
+                                    </td>
+                                    {/*Description*/}
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                      <div className="flex items-center">
+                                        <span className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">{this.state.collection_tokenDescription ? this.state.collection_tokenDescription[i] : ""}</span>
+                                      </div>
+                                    </td>
+                                </tr>
+                              )
+                            })
+                        }
+                    </tbody>
+                  </table>

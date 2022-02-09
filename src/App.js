@@ -1,8 +1,7 @@
 import './App.css';
 import {contractABI} from './contracts/contract_abi';
 import { ethers } from 'ethers';
-import styled, { ThemeProvider } from "styled-components";
-import { lightTheme, darkTheme, GlobalStyles } from "./themes.js";
+import styled from "styled-components";
 import { Component } from 'react/cjs/react.production.min';
 
 const contractAddress = "0xb28D6A49A5eAc0E7B2eD1284614d38BDE69b5Bc8";
@@ -12,19 +11,14 @@ const StyledApp = styled.div`
 `;
 class App extends Component {
   state = {
-    theme: 'light',
     currentAccount: null,
-    value: '',
+    mint_value: '',
     collection_tokenId: [],
     collection_tokenName: [],
     collection_tokenImg: [],
     collection_tokenDescription: []
   };
 
-
-  themeToggler = () => {
-    this.state.theme === "light" ? this.setState({ theme: "dark" }) : this.setState({ theme:"light" });
-  };
 
   checkWalletIsConnected = async () => {
     const { ethereum } = window;
@@ -76,7 +70,7 @@ class App extends Component {
         const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
 
         console.log("Initialize payment");
-        let nftTxn = await nftContract.finishMint(this.state.value);
+        let nftTxn = await nftContract.finishMint(this.state.mint_value);
 
         console.log("Mining... please wait");
         await nftTxn.wait();
@@ -110,8 +104,8 @@ class App extends Component {
           <input
             className='shadow sm:rounded-lg'
             id='form_input'
-            value={this.state.value}
-            onChange={(e) => this.setState({value: e.target.value})}
+            mint_value={this.state.mint_value}
+            onChange={(e) => this.setState({mint_value: e.target.mint_value})}
           />
           <button class="button-82-pushable" role="button">
             <span class="button-82-shadow"></span>
@@ -194,62 +188,49 @@ class App extends Component {
   render(){
     return (
       <div className='main-app'>
+        <div id="navbar">
+          <a href="#home">Home</a>
+          <a href="#news">News</a>
+          <a href="#collection">Collection</a>
+        </div> 
         <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"></link>
-        <ThemeProvider theme={this.state.theme === "light" ? lightTheme : darkTheme}>
-          <GlobalStyles />
-          <StyledApp>
-            <h1>React Web3 Tutorial</h1>
-            <h4>Want to try your luck?</h4>
+            <h1 class="neon-title-app">NFT Galaxy</h1>
+
             <div >
               {this.state.currentAccount ? this.mintNftButton() : this.connectWalletButton()}
             </div>
-            <button class="button-moon" onClick={() => this.themeToggler()}></button>
-            <h3>Publishing List</h3>
-            <div className="flex flex-col mt-8">
-              <div style={{backgroundColor: '#9197AE' }} className="shadow sm:rounded-lg py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-                <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
-                  <table className="min-w-full">
-                    <thead>
-                      <tr>
-                        <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Image:</th>
-                        <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Name:                 </th>
-                        <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Description:</th>
-                      </tr>
-                    </thead>
-                    <tbody className="bg-white">
-                        {//map IMAGE
-                          this.state.collection_tokenImg.map(
-                            (item,i) => {
-                              return(
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="flex items-center">
-                                            <div className="flex-shrink-0 w-10 h-10">
-                                            <img className="w-10 h-10" src={item} key={i}></img>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                      <div className="flex items-center">
-                                          {this.state.collection_tokenName ? this.state.collection_tokenName[i] : ""}
-                                      </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                      <div className="flex items-center">
-                                        <span className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">{this.state.collection_tokenDescription ? this.state.collection_tokenDescription[i] : ""}</span>
-                                      </div>
-                                    </td>
-                                </tr>
-                              )
-                            })
-                        }
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+
+            <div class="wrap">
+        
+              {this.state.collection_tokenImg.map(
+                (item,i) => {
+                  return(
+                    <div>
+                      <div id="container" class="box">
+                        <div id="block-name">
+                          <div class="nft_name_title" >
+                              {/*Name*/}
+                              <a href={"https://testnets.opensea.io/assets/0xb28D6A49A5eAc0E7B2eD1284614d38BDE69b5Bc8/"+this.state.collection_tokenId[i]}>{this.state.collection_tokenName ? this.state.collection_tokenName[i] : ""}</a>
+                          </div>
+                        </div>
+                        <div class="boxInner">
+                          {/*Image*/}
+                          <img class="image_nft" src={item} key={i}></img>
+                        </div>
+                        <div class="middle">
+                          {/*Description*/}
+                          <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">{this.state.collection_tokenDescription ? this.state.collection_tokenDescription[i] : ""}</div>
+                          {/*Attributes*/}
+                          <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">{this.state.collection_tokenDescription ? this.state.collection_tokenDescription[i] : ""}</div>
+                          {/*Attributes*/}
+                          <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">{this.state.collection_tokenDescription ? this.state.collection_tokenDescription[i] : ""}</div>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })
+              }
             </div>
-          </StyledApp>
-        </ThemeProvider>
       </div>
     )
   }
