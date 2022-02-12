@@ -68,6 +68,7 @@ class Collection extends Component {
             const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
     
             console.log("Initialize payment");
+            console.log(this.state.mint_value);
             let nftTxn = await nftContract.finishMint(this.state.mint_value);
     
             console.log("Mining... please wait");
@@ -102,8 +103,8 @@ class Collection extends Component {
               <input
                 className='shadow sm:rounded-lg'
                 id='form_input'
-                mint_value={this.state.mint_value}
-                onChange={(e) => this.setState({mint_value: e.target.mint_value})}
+                value={this.state.mint_value}
+                onChange={(e) => this.setState({mint_value: e.target.value})}
               />
               <button class="button-82-pushable" role="button">
                 <span class="button-82-shadow"></span>
@@ -181,7 +182,6 @@ class Collection extends Component {
         //console.log(this.state.collection_tokenImg)
       }
 
-//dark theme implementation
   render(){
     return (
         <div className='collection-page'>
@@ -196,27 +196,27 @@ class Collection extends Component {
             {this.state.collection_tokenImg.map(
                 (item,i) => {
                 return(
-                    <div>
-                    <div id="container" class="box">
-                        <div id="block-name">
-                        <div class="nft_name_title" >
-                            {/*Name*/}
-                            <a href={"https://testnets.opensea.io/assets/0xb28D6A49A5eAc0E7B2eD1284614d38BDE69b5Bc8/"+this.state.collection_tokenId[i]}>{this.state.collection_tokenName ? this.state.collection_tokenName[i] : ""}</a>
-                        </div>
-                        </div>
-                        <div class="boxInner">
-                        {/*Image*/}
-                        <img class="image_nft" src={item} key={i}></img>
-                        </div>
-                        <div class="middle">
-                        {/*Description*/}
-                        <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">{this.state.collection_tokenDescription ? this.state.collection_tokenDescription[i] : ""}</div>
-                        {/*Attributes*/}
-                        <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">{this.state.collection_tokenDescription ? this.state.collection_tokenDescription[i] : ""}</div>
-                        {/*Attributes*/}
-                        <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">{this.state.collection_tokenDescription ? this.state.collection_tokenDescription[i] : ""}</div>
-                        </div>
-                    </div>
+                    <div key={i}>
+                      <div id="container" class="box">
+                          <div id="block-name">
+                          <div class="nft_name_title" >
+                              {/*Name*/}
+                              <a href={"https://testnets.opensea.io/assets/0xb28D6A49A5eAc0E7B2eD1284614d38BDE69b5Bc8/"+this.state.collection_tokenId[i]}>{this.state.collection_tokenName ? this.state.collection_tokenName[i] : ""}</a>
+                          </div>
+                          </div>
+                          <div class="boxInner">
+                          {/*Image*/}
+                          <img class="image_nft" src={item} ></img>
+                          </div>
+                          <div class="middle">
+                          {/*Description*/}
+                          <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">{this.state.collection_tokenDescription ? this.state.collection_tokenDescription[i] : ""}</div>
+                          {/*Attributes*/}
+                          <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">{this.state.collection_tokenDescription ? this.state.collection_tokenDescription[i] : ""}</div>
+                          {/*Attributes*/}
+                          <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">{this.state.collection_tokenDescription ? this.state.collection_tokenDescription[i] : ""}</div>
+                          </div>
+                      </div>
                     </div>
                 )
                 })
