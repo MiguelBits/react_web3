@@ -1,7 +1,7 @@
 {
     "name": "Dark Girl",
     "description": "monster",
-    "image": "https://github.com/mcruzvas/nft_duel/blob/main/static/images/product/cards/Dark%20Magician%20Girl.jpg?raw=true",
+    "image": "https://github.com/mcruzvas/erc1155/main/metadata/0.png",
     "attributes": [
         {
           "trait_type": "Base", 
