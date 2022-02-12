@@ -1,7 +1,7 @@
 {
     "name": "Dark Girl",
     "description": "monster",
-    "image": "https://github.com/mcruzvas/erc1155/main/metadata/0.png",
+    "image": "https://raw.githubusercontent.com/mcruzvas/erc1155/main/metadata/0.png",
     "attributes": [
         {
           "trait_type": "Base", 
