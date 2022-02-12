@@ -18,6 +18,7 @@ html{
   text-align:right;
   border-radius: 25px;
   border: 2px solid #5e2f2f;
+  justify-content: space-around;
   
 }
 /* Navbar links */
@@ -26,7 +27,8 @@ html{
   display: inline;
   color: #f2f2f2;
   text-align: center;
-  padding: 250px;
+  padding: 280px;
+  font-size: x-large;
   text-shadow:
   0 0 5px rgb(243, 7, 7),
   0 0 10px rgb(246, 5, 5),

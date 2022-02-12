@@ -3,6 +3,8 @@ import {contractABI} from './contracts/contract_abi';
 import { ethers } from 'ethers';
 import styled from "styled-components";
 import { Component } from 'react/cjs/react.production.min';
+import Nav from "./components/Nav"
+
 
 const contractAddress = "0xb28D6A49A5eAc0E7B2eD1284614d38BDE69b5Bc8";
 
@@ -53,6 +55,7 @@ class App extends Component {
       const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
       console.log("Found an account! Address: ", accounts[0]);
       this.setState({accounts:accounts[0]});
+      window.location.reload(false);
     } catch (err) {
       console.log(err)
     }
@@ -188,11 +191,7 @@ class App extends Component {
   render(){
     return (
       <div className='main-app'>
-        <div id="navbar">
-          <a href="#home">Home</a>
-          <a href="#news">News</a>
-          <a href="#collection">Collection</a>
-        </div> 
+        <Nav/>
         <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"></link>
             <h1 class="neon-title-app">NFT Galaxy</h1>
 
