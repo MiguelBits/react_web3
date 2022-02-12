@@ -8,7 +8,7 @@ class Nav extends React.Component {
         <nav id="navbar">
             <a href="/">Home</a>
             <a href="/about">About</a>
-            <a href="/collection">Collection</a>
+            <a href="/collection" >Collection</a>
         </nav> 
 
       );

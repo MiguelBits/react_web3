@@ -201,7 +201,8 @@ class Collection extends Component {
                           <div id="block-name">
                           <div class="nft_name_title" >
                               {/*Name*/}
-                              <a href={"https://testnets.opensea.io/assets/0xb28D6A49A5eAc0E7B2eD1284614d38BDE69b5Bc8/"+this.state.collection_tokenId[i]}>{this.state.collection_tokenName ? this.state.collection_tokenName[i] : ""}</a>
+                              <a target = "_blank" 
+rel = "noopener noreferrer" href={"https://testnets.opensea.io/assets/0xb28D6A49A5eAc0E7B2eD1284614d38BDE69b5Bc8/"+this.state.collection_tokenId[i]}>{this.state.collection_tokenName ? this.state.collection_tokenName[i] : ""}</a>
                           </div>
                           </div>
                           <div class="boxInner">
