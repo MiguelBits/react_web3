@@ -53,11 +53,12 @@ class Home extends React.Component {
       <div id="home-page">
           <button onClick={() => this.mintNftHandler(1)} class="cyber_button">
             <span aria-hidden>Robot</span>
-            <img id="robot-planet" src=""></img>
+            <img id="robot-planet" src="https://github.com/mcruzvas/react_web3/blob/home-page-css/public/planets/robot.png?raw=true"></img>
           </button>
           <p></p>
           <button onClick={() => this.mintNftHandler(2)} class="cyber_button">
             <span aria-hidden>God</span>
+            <img id="god-planet" src="https://github.com/mcruzvas/react_web3/blob/home-page-css/public/planets/robot.png?raw=true"></img>
           </button>
           
           <button onClick={() => this.mintNftHandler(3)} class="cyber_button">

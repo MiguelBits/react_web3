@@ -8,7 +8,14 @@
     margin-left: 125px;
     margin-right: 350px;
 }
-
+#robot-planet{
+    width: 500px;
+    margin-top: -310px;
+}
+#god-planet{
+    margin-left: -200px;
+    margin-top: -175px;
+}
 .cyber_button{
     margin-left: 200px;
     margin-top: 200px;
