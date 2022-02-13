@@ -9,13 +9,13 @@ const contractAddress = "0x1052eb421886edCf02c1F7418188258E6af6a70A";
 class Collection extends Component {
     state = {
         currentAccount: null,
-        mint_value: '',
         collection_tokenId: [],
         collection_tokenName: [],
         collection_tokenImg: [],
         collection_tokenStars: [],
         collection_tokenClass: [],
-        collection_tokenElement: []
+        collection_tokenElement: [],
+        boost_value: ''
       };
     
     
@@ -59,174 +59,6 @@ class Collection extends Component {
       
     }
   
-    mintNftHandler_Robot = async (e: any) => {
-      e.preventDefault();
-      try {
-        const { ethereum } = window;
-  
-        if (ethereum) {
-          const provider = new ethers.providers.Web3Provider(ethereum);
-          const signer = provider.getSigner();
-          const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
-  
-          console.log("Initialize payment");
-          let nftTxn = await nftContract.heroMint_Robot();
-  
-          console.log("Mining... please wait");
-          await nftTxn.wait();
-  
-          //console.log(`Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`);
-          window.location.reload(false);
-
-  
-        } else {
-          console.log("Ethereum object does not exist");
-        }
-  
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    mintNftHandler_God = async (e: any) => {
-      e.preventDefault();
-      try {
-        const { ethereum } = window;
-  
-        if (ethereum) {
-          const provider = new ethers.providers.Web3Provider(ethereum);
-          const signer = provider.getSigner();
-          const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
-  
-          console.log("Initialize payment");
-          let nftTxn = await nftContract.heroMint_God();
-  
-          console.log("Mining... please wait");
-          await nftTxn.wait();
-  
-          //console.log(`Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`);
-          window.location.reload(false);
-
-  
-        } else {
-          console.log("Ethereum object does not exist");
-        }
-  
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    mintNftHandler_Superhuman = async (e: any) => {
-      e.preventDefault();
-      try {
-        const { ethereum } = window;
-  
-        if (ethereum) {
-          const provider = new ethers.providers.Web3Provider(ethereum);
-          const signer = provider.getSigner();
-          const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
-  
-          console.log("Initialize payment");
-          let nftTxn = await nftContract.heroMint_Superhuman();
-  
-          console.log("Mining... please wait");
-          await nftTxn.wait();
-  
-          //console.log(`Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`);
-          window.location.reload(false);
-
-  
-        } else {
-          console.log("Ethereum object does not exist");
-        }
-  
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    mintNftHandler_Alien = async (e: any) => {
-      e.preventDefault();
-      try {
-        const { ethereum } = window;
-  
-        if (ethereum) {
-          const provider = new ethers.providers.Web3Provider(ethereum);
-          const signer = provider.getSigner();
-          const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
-  
-          console.log("Initialize payment");
-          let nftTxn = await nftContract.heroMint_Alien();
-  
-          console.log("Mining... please wait");
-          await nftTxn.wait();
-  
-          //console.log(`Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`);
-          window.location.reload(false);
-
-  
-        } else {
-          console.log("Ethereum object does not exist");
-        }
-  
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    mintNftHandler_Animal = async (e: any) => {
-      e.preventDefault();
-      try {
-        const { ethereum } = window;
-  
-        if (ethereum) {
-          const provider = new ethers.providers.Web3Provider(ethereum);
-          const signer = provider.getSigner();
-          const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
-  
-          console.log("Initialize payment");
-          let nftTxn = await nftContract.heroMint_Animal();
-  
-          console.log("Mining... please wait");
-          await nftTxn.wait();
-  
-          //console.log(`Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`);
-          window.location.reload(false);
-
-  
-        } else {
-          console.log("Ethereum object does not exist");
-        }
-  
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    mintNftHandler_Darklink = async (e: any) => {
-      e.preventDefault();
-      try {
-        const { ethereum } = window;
-  
-        if (ethereum) {
-          const provider = new ethers.providers.Web3Provider(ethereum);
-          const signer = provider.getSigner();
-          const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
-  
-          console.log("Initialize payment");
-          let nftTxn = await nftContract.heroMint_Darklink();
-  
-          console.log("Mining... please wait");
-          await nftTxn.wait();
-  
-          //console.log(`Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`);
-          window.location.reload(false);
-
-  
-        } else {
-          console.log("Ethereum object does not exist");
-        }
-  
-      } catch (err) {
-        console.log(err);
-      }
-    }
     connectWalletButton = () => {
       return (
         <button onClick={this.connectWalletHandler} className='cta-button connect-wallet-button'>
@@ -235,54 +67,6 @@ class Collection extends Component {
       )
     }
   
-    mintNftButton = () => {
-      return (
-      <div id="form_overlay" className='shadow sm:rounded-lg'>
-          <button onClick={this.mintNftHandler_Robot} class="button-82-pushable">
-              <span class="button-82-shadow"></span>
-              <span class="button-82-edge"></span>
-              <span class="button-82-front text">
-                Robot
-              </span>
-          </button>
-          <button onClick={this.mintNftHandler_God} class="button-82-pushable">
-              <span class="button-82-shadow"></span>
-              <span class="button-82-edge"></span>
-              <span class="button-82-front text">
-                God
-              </span>
-          </button>
-          <button onClick={this.mintNftHandler_Superhuman} class="button-82-pushable">
-              <span class="button-82-shadow"></span>
-              <span class="button-82-edge"></span>
-              <span class="button-82-front text">
-                Superhuman
-              </span>
-          </button>
-          <button onClick={this.mintNftHandler_Alien} class="button-82-pushable">
-              <span class="button-82-shadow"></span>
-              <span class="button-82-edge"></span>
-              <span class="button-82-front text">
-                Alien
-              </span>
-          </button>
-          <button onClick={this.mintNftHandler_Animal} class="button-82-pushable">
-              <span class="button-82-shadow"></span>
-              <span class="button-82-edge"></span>
-              <span class="button-82-front text">
-                Animal
-              </span>
-          </button>
-          <button onClick={this.mintNftHandler_Darklink} class="button-82-pushable">
-              <span class="button-82-shadow"></span>
-              <span class="button-82-edge"></span>
-              <span class="button-82-front text">
-                Darklink
-              </span>
-          </button>
-      </div>
-      )
-    }
     collectionNftHandler = async () => {
       //console.log("handling nft collection")
       const { ethereum } = window;
@@ -346,13 +130,7 @@ class Collection extends Component {
         console.log("Ethereum object does not exist");
       }
   }
-      
-  componentDidMount = () => {
-    this.checkWalletIsConnected();
-    //nft collection array
-    this.collectionNftHandler()
-  };
-
+  
   printStars(stars){
     let final_str = "✪";
     for (var i = 1; i < stars; i++) {
@@ -360,7 +138,65 @@ class Collection extends Component {
     }
     //console.log(final_str)
     return final_str 
+  }    
+  upgradeNftHandler = async (e: any) => {
+    e.preventDefault();
+    try {
+      const { ethereum } = window;
+
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
+
+        console.log("Initialize payment");
+        let nftTxn = await nftContract.getNFT_stars(this.state.boost_value).then(result => {
+          alert("CurrentStars: "+result)
+        })
+        console.log("Mining... please wait");
+        await nftTxn.wait();
+
+        console.log(`Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`);
+        
+
+      } else {
+        console.log("Ethereum object does not exist");
+      }
+
+    } catch (err) {
+      console.log(err);
+    }
   }
+  upgradeNftButton = () => {
+    return (
+    <div id="form_overlay" className='shadow sm:rounded-lg'>
+        <form onSubmit={this.upgradeNftHandler}>
+        <div>
+          <label id="unlock">Token ID to upgrade   </label>
+          <input
+            className='shadow sm:rounded-lg'
+            id='form_input'
+            value={this.state.boost_value}
+            onChange={(e) => this.setState({boost_value: e.target.value})}
+          />
+          <button class="button-82-pushable" role="button">
+            <span class="button-82-shadow"></span>
+            <span class="button-82-edge"></span>
+            <span class="button-82-front text">
+              BOOST ✪
+            </span>
+          </button>
+        </div>
+      </form>
+    </div>
+    )
+  }
+  componentDidMount = () => {
+    this.checkWalletIsConnected();
+    //nft collection array
+    this.collectionNftHandler()
+  };
+
 
   render(){
     return (
@@ -368,7 +204,7 @@ class Collection extends Component {
             <h1 class="neon-title-app">NFT Galaxy</h1>
 
             <div >
-            {this.state.currentAccount ? this.mintNftButton() : this.connectWalletButton()}
+            {this.state.currentAccount ? this.upgradeNftButton() : this.connectWalletButton()}
             </div>
 
             <div class="wrap">
