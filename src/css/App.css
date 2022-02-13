@@ -2,7 +2,19 @@
 html{
   background-image: url("https://wallpaperaccess.com/full/130220.jpg")
 }
-
+#about-page{
+  color: white;
+}
+#connect-wallet{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 200px;
+  min-height: 10vh;
+  min-width: 100vh;
+  font-size: xx-large;
+}
 #root{
   background-image: url("https://wallpaperaccess.com/full/130220.jpg")
 }
@@ -223,11 +235,7 @@ html{
 #unlock{
   color:white;
 }
-body {
-  margin: 0;
-  padding: 0;
-  font: 10px/13px 'Lucida Sans',sans-serif;
-}
+
 .wrap {
   border-radius: 25px;
   border: 2px solid #a30000;
@@ -354,3 +362,4 @@ body {
     background-position: 200% center;
   }
 }
+
