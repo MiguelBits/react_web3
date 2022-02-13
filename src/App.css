@@ -210,9 +210,15 @@ html{
   padding-bottom: 10px;
   padding-left: 0px;
   padding-right: 40px;
+  margin-left: 80px
 }
 #form_input{
   background-color: #ffffff;
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: large;
+  margin-left: 25px;
+  margin-right: 25px;
 }
 #unlock{
   color:white;
