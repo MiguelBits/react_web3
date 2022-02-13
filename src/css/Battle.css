@@ -1,7 +1,12 @@
 .battle-page{
     color: white;
 }
+
 #staked-time img{
-    color: white;
     padding-left: 750px;
+    
+}
+#staked-time p{
+    margin-top: -100px;
+    margin-left: 200px;
 }
