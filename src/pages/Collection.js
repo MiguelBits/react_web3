@@ -49,10 +49,6 @@ class Collection extends Component {
                   const previous_state_tokenName = this.state.collection_tokenName;
                   const updated_state_nft_tokenName = previous_state_tokenName.concat(jsonData.name)
                   this.setState({collection_tokenName: updated_state_nft_tokenName})
-                  //stars
-                  const previous_state_stars = this.state.collection_tokenStars;
-                  const updated_state_nft_stars = previous_state_stars.concat(jsonData.properties.stars)
-                  this.setState({collection_tokenStars: updated_state_nft_stars})
                   //class
                   const previous_state_class = this.state.collection_tokenClass;
                   const updated_state_nft_class = previous_state_class.concat(jsonData.properties.class)
@@ -68,6 +64,12 @@ class Collection extends Component {
             const previous_state_attack = this.state.collection_tokenAttack;
             const updated_state_nft_attack = previous_state_attack.concat(parseInt(result._hex.toString()))
             this.setState({collection_tokenAttack: updated_state_nft_attack})
+          })
+          nftContract.getNFT_stars(data[i]).then(result => {
+            //stars
+            const previous_state_stars = this.state.collection_tokenStars;
+            const updated_state_nft_stars = previous_state_stars.concat(parseInt(result._hex.toString()))
+            this.setState({collection_tokenStars: updated_state_nft_stars})
           })
         }
   
@@ -178,7 +180,7 @@ rel = "noopener noreferrer" href={"https://testnets.opensea.io/assets/"+contract
                             <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Class: {this.state.collection_tokenClass ? this.state.collection_tokenClass[i] : ""}</div>
                             {/*Attributes*/}
                             <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Element: {this.state.collection_tokenElement ? this.state.collection_tokenElement[i] : ""}</div>
-                            <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Attack: {this.state.collection_tokenElement ? this.state.collection_tokenAttack[i] : ""}</div>
+                            <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Attack: {this.state.collection_tokenAttack ? this.state.collection_tokenAttack[i] : ""}</div>
                           </div>
                       </div>
                     </div>
