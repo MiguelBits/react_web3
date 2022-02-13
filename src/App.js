@@ -2,7 +2,7 @@ import './App.css';
 
 import { Component } from 'react/cjs/react.production.min';
 import Nav from "./components/Nav"
-import About from "./pages/About"
+import Battle from "./pages/Battle"
 import Home from "./pages/Home"
 import Collection from './pages/Collection';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -16,10 +16,10 @@ class App extends Component {
         <div className='main-app'>
         <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"></link>
             <Nav/>
-            
+
             <Routes>
               <Route path="/" element={<Home/>}/>
-              <Route path="/about" element={<About/>}/>
+              <Route path="/battle" element={<Battle/>}/>
               <Route path="/collection" element={<Collection/>}/>
             </Routes>
 

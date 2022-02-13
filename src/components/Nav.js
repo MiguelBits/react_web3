@@ -1,5 +1,4 @@
 import React from 'react';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 class Nav extends React.Component {
 
@@ -7,7 +6,7 @@ class Nav extends React.Component {
       return (
         <nav id="navbar">
             <a href="/">Home</a>
-            <a href="/about">About</a>
+            <a href="/battle">Battle</a>
             <a href="/collection" >Collection</a>
         </nav> 
 
