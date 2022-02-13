@@ -16,9 +16,19 @@
     margin-left: -200px;
     margin-top: -175px;
 }
-#superhuman-planet, #animal-planet{
+#superhuman-planet{
     margin-left: 220px;
     margin-top: -200px;
+    width: 250px;
+}
+#animal-planet{
+    margin-left: 220px;
+    margin-top: -200px;
+    width: 500px;
+}
+#darklink-planet{
+    width: 400px;
+    margin-top: -50px;
 }
 
 .cyber_button{
