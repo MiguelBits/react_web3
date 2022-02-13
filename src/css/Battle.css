@@ -1,12 +1,22 @@
-.battle-page{
-    color: white;
+@font-face {
+    font-family: Cyber;
+    src: url("https://assets.codepen.io/605876/Blender-Pro-Bold.otf");
+    font-display: swap;
 }
 
+
 #staked-time img{
-    padding-left: 750px;
-    
+    padding-left: 750px;    
 }
 #staked-time p{
     margin-top: -100px;
     margin-left: 200px;
+    font-family: 'Cyber', sans-serif; 
+    font-size: xx-large;
+    color: white;
+    margin-bottom: 100px;
+
+}
+#stake_form_overlay{
+    margin-top: 0px;
 }

@@ -2,6 +2,9 @@
 html{
   background-image: url("https://wallpaperaccess.com/full/130220.jpg")
 }
+#home-page{
+  color: white;
+}
 #about-page{
   color: white;
 }
@@ -84,27 +87,6 @@ html{
     text-align: center;
     margin: 100px;
 }
-
-.cta-button {
-    padding: 15px;
-    border: none;
-    border-radius: 12px;
-    min-width: 250px;
-    color: white;
-    font-size: 18px;
-    cursor: pointer;
-}
-
-.connect-wallet-button {
-    background: rgb(32, 129, 226);
-}
-
-.mint-nft-button {
-    margin-left: 10px;
-    background: orange;
-}
-
-
 
 /* CSS */
 .button-82-pushable {
@@ -235,7 +217,11 @@ html{
 #unlock{
   color:white;
 }
-
+body {
+  margin: 0;
+  padding: 0;
+  font: 10px/13px 'Lucida Sans',sans-serif;
+}
 .wrap {
   border-radius: 25px;
   border: 2px solid #a30000;
@@ -259,7 +245,7 @@ html{
   left: 10px;
   right: 10px;
   top: 50px;
-  bottom: 10px;
+  bottom: 50px;
   overflow: hidden;
 }
 .boxInner img { width: 100% }
@@ -301,14 +287,7 @@ html{
   transition: .5s ease;
   backface-visibility: hidden;
 }
-/*
-#block-name{
-  background: #00000079;
-  margin-right: 10px;
-  padding-top: 10px;
-  margin-left: 10px;
-}
-*/
+
 .middle {
   transition: .5s ease;
   opacity: 0;
@@ -319,7 +298,9 @@ html{
   -ms-transform: translate(-50%, -50%);
   text-align: center;
 }
-
+.middle p{
+  color: #f2f2f200;
+}
 #container:hover .image_nft {
   opacity: 0.3;
 }

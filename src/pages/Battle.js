@@ -5,7 +5,8 @@ import './../css/Battle.css';
 
 class Battle extends React.Component {
   state = {
-    timeLeft: 0
+    timeLeft: 0,
+    staked_id: 1,
   }
   getStakedTimeLeft(id) {
     const { ethereum } = window;
@@ -23,15 +24,16 @@ class Battle extends React.Component {
     }
   }
   componentDidMount = () => {
-    //this.getStakedTimeLeft(1);
   }
+
   render() {
     return (
       <div className='battle-page'>
         <div id="staked-time">
-            <img src="https://github.com/mcruzvas/react_web3/blob/battle_staked-version1/public/clock2.png?raw=true"/>
+            <img alt="clock" src="https://github.com/mcruzvas/react_web3/blob/battle_staked-version1/public/clock2.png?raw=true"/>
             <p>{this.state.timeLeft}</p>
         </div>
+        
       </div>
     );
   }

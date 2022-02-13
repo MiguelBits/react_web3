@@ -15,8 +15,15 @@ class Collection extends Component {
         collection_tokenAttack: [],
         boost_value: ''
       };
-
-  
+    isStaked(id){
+      return false;
+    }
+    stake(id){
+      return 1
+    }
+    unstake(id){
+      return 1
+    }
     collectionNftHandler = async () => {
       const { ethereum } = window;
   
@@ -85,8 +92,8 @@ class Collection extends Component {
     //console.log(final_str)
     return final_str 
   }    
-  upgradeNftHandler = async (e: any) => {
-    e.preventDefault();
+  upgradeNftHandler = async () => {
+    
     try {
       const { ethereum } = window;
 
@@ -166,13 +173,13 @@ class Collection extends Component {
                               <a target = "_blank" 
 rel = "noopener noreferrer" href={"https://testnets.opensea.io/assets/"+contractAddress+"/"+this.state.collection_tokenId[i]}>{this.state.collection_tokenName ? this.state.collection_tokenName[i] : ""}</a>
                               <p>{this.state.collection_tokenId[i]}*</p>
-                          </div>
                             </div>
-                            <div className="boxInner">
+                          </div>
+                          <div className="boxInner">
                             {/*Image*/}
                             <img alt={this.state.collection_tokenId[i]} className="image_nft" src={item} ></img>
-                            </div>
-                            <div className="middle">
+                          </div>
+                          <div className="middle">
                             {/*Stars*/}
                             <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Stars: {this.state.collection_tokenStars ? this.printStars(this.state.collection_tokenStars[i]) : ""}</div>
                             {/*Class*/}
@@ -180,6 +187,10 @@ rel = "noopener noreferrer" href={"https://testnets.opensea.io/assets/"+contract
                             {/*Attributes*/}
                             <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Element: {this.state.collection_tokenElement ? this.state.collection_tokenElement[i] : ""}</div>
                             <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Attack: {this.state.collection_tokenAttack ? this.state.collection_tokenAttack[i] : ""}</div>
+                            <p>-------</p>
+                            {
+                            this.isStaked(this.state.collection_tokenId[i]) ? <button onClick={() => this.stake(this.state.collection_tokenId[i])} className='inline-flex px-2 text-xl font-semibold text-white-100 bg-red-500 rounded-full'> UnStake </button>:(<button onClick={() => this.unstake(this.state.collection_tokenId[i])} className='inline-flex px-2 text-xl font-semibold text-white-100 bg-red-500 rounded-full'> Stake </button>)
+                            }     
                           </div>
                       </div>
                     </div>
