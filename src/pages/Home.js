@@ -77,7 +77,7 @@ class Home extends React.Component {
           
           <button onClick={() => this.mintNftHandler(6)} class="cyber_button">
             <span aria-hidden>Darklink</span>
-            <img id="darklink-planet" src="https://github.com/mcruzvas/react_web3/blob/home-page-css/public/planets/animal.png?raw=true"></img>
+            <img id="darklink-planet" src="https://github.com/mcruzvas/react_web3/blob/home-page-css/public/planets/darklink3.png?raw=true"></img>
           </button>
           
       </div>
