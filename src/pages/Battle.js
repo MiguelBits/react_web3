@@ -23,13 +23,14 @@ class Battle extends React.Component {
     }
   }
   componentDidMount = () => {
-    this.getStakedTimeLeft(1);
+    //this.getStakedTimeLeft(1);
   }
   render() {
     return (
       <div className='battle-page'>
         <div id="staked-time">
-            <img src="">{this.state.timeLeft}</img>
+            <img src="https://github.com/mcruzvas/react_web3/blob/battle_staked-version1/public/clock2.png?raw=true"/>
+            <p>{this.state.timeLeft}</p>
         </div>
       </div>
     );
