@@ -1,4 +1,4 @@
-export const contractAddress = "0x1052eb421886edCf02c1F7418188258E6af6a70A";
+export const contractAddress = "0x6Fa62e70ae691983eF82ef1F2691dA148BaE39eC";
 export const contractABI = [
 	{
 		"anonymous": false,
@@ -119,43 +119,14 @@ export const contractABI = [
 		"type": "event"
 	},
 	{
-		"inputs": [],
-		"name": "heroMint_Alien",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "heroMint_Animal",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "heroMint_Darklink",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "heroMint_God",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "heroMint_Robot",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "heroMint_Superhuman",
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "class",
+				"type": "uint256"
+			}
+		],
+		"name": "heroMint",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -448,15 +419,15 @@ export const contractABI = [
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "id",
+				"name": "class",
 				"type": "uint256"
 			}
 		],
-		"name": "getStakedTimedLeft",
+		"name": "getPopulation",
 		"outputs": [
 			{
 				"internalType": "uint256",
-				"name": "timeLeft",
+				"name": "pop",
 				"type": "uint256"
 			}
 		],
@@ -471,12 +442,12 @@ export const contractABI = [
 				"type": "uint256"
 			}
 		],
-		"name": "getUri",
+		"name": "getStakedTimedLeft",
 		"outputs": [
 			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
+				"internalType": "uint256",
+				"name": "timeLeft",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",

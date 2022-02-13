@@ -24,9 +24,23 @@ class Home extends React.Component {
         const signer = provider.getSigner();
         const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
 
-        console.log("Initialize payment");
         nftContract.getPopulation(class_id).then(result => {
-          console.log(result)
+          switch(class_id){
+            case 1: 
+              this.setState({Robot_planets_population: result._hex})
+            case 2:
+              this.setState({God_planets_population: result._hex})
+            case 3:
+              this.setState({Superhuman_planets_population: result._hex})
+            case 4:
+              this.setState({Alien_planets_population: result._hex})
+            case 5:
+              this.setState({Animal_planets_population: result._hex})
+            case 6:
+              this.setState({Darklink_planets_population: result._hex})
+
+          }
+          //console.log(result._hex)
         })
 
       } else {
@@ -36,48 +50,54 @@ class Home extends React.Component {
     } catch (err) {
       console.log(err);
     }
+    //console.log(this.state.planets_population);
   }
   
   componentDidMount = () => {
-    this.setState({Robot_planets_population:this.getPopulation(1)})
-    this.setState({God_planets_population:this.getPopulation(2)})
-    this.setState({Superhuman_planets_population:this.getPopulation(3)})
-    this.setState({Alien_planets_population:this.getPopulation(4)})
-    this.setState({Animal_planets_population:this.getPopulation(5)})
-    this.setState({Darklink_planets_population:this.getPopulation(6)})
-    console.log(this.state.Alien_planets_population)
+    this.getPopulation(1);
+    this.getPopulation(2);
+    this.getPopulation(3);
+    this.getPopulation(4);
+    this.getPopulation(5);
+    this.getPopulation(6);
   }
   
   render() {
     return (
       <div id="home-page">
-          <button onClick={() => this.mintNftHandler(1)} class="cyber_button">
+          <button onClick={() => this.mintNftHandler(1)} className="cyber_button">
             <span aria-hidden>Robot</span>
-            <img id="robot-planet" src="https://github.com/mcruzvas/react_web3/blob/home-page-css/public/planets/robot.png?raw=true"></img>
+            <span aria-hidden className="cyber_button__tag">Population:{this.state.Robot_planets_population}</span>
+            <img alt="" id="robot-planet" src="https://github.com/mcruzvas/react_web3/blob/home-page-css/public/planets/robot.png?raw=true"></img>
           </button>
           <p></p>
-          <button onClick={() => this.mintNftHandler(2)} class="cyber_button">
+          <button onClick={() => this.mintNftHandler(2)} className="cyber_button">
             <span aria-hidden>God</span>
-            <img id="god-planet" src="https://github.com/mcruzvas/react_web3/blob/home-page-css/public/planets/god.png?raw=true"></img>
+            <span aria-hidden className="cyber_button__tag">Population:{this.state.God_planets_population}</span>
+            <img alt="" id="god-planet" src="https://github.com/mcruzvas/react_web3/blob/home-page-css/public/planets/god.png?raw=true"></img>
           </button>
           
-          <button onClick={() => this.mintNftHandler(3)} class="cyber_button">
+          <button onClick={() => this.mintNftHandler(3)} className="cyber_button">
             <span aria-hidden>Superhuman</span>
-            <img id="superhuman-planet" src="https://github.com/mcruzvas/react_web3/blob/home-page-css/public/planets/superhuman2.png?raw=true"></img>
+            <span aria-hidden className="cyber_button__tag">Population:{this.state.Superhuman_planets_population}</span>
+            <img alt="" id="superhuman-planet" src="https://github.com/mcruzvas/react_web3/blob/home-page-css/public/planets/superhuman2.png?raw=true"></img>
           </button>
           
-          <button onClick={() => this.mintNftHandler(4)} class="cyber_button">
+          <button onClick={() => this.mintNftHandler(4)} className="cyber_button">
             <span aria-hidden>Alien</span>
-            <img id="alien-planet" src="https://github.com/mcruzvas/react_web3/blob/home-page-css/public/planets/alien.png?raw=true"></img>
+            <span aria-hidden className="cyber_button__tag">Population:{this.state.Alien_planets_population}</span>
+            <img alt="" id="alien-planet" src="https://github.com/mcruzvas/react_web3/blob/home-page-css/public/planets/alien.png?raw=true"></img>
           </button>
-          <button onClick={() => this.mintNftHandler(5)} class="cyber_button">
+          <button onClick={() => this.mintNftHandler(5)} className="cyber_button">
             <span aria-hidden>Animal</span>
-            <img id="animal-planet" src="https://github.com/mcruzvas/react_web3/blob/home-page-css/public/planets/animal.png?raw=true"></img>
+            <span aria-hidden className="cyber_button__tag">Population:{this.state.Animal_planets_population}</span>
+            <img alt="" id="animal-planet" src="https://github.com/mcruzvas/react_web3/blob/home-page-css/public/planets/animal.png?raw=true"></img>
           </button>
           
-          <button onClick={() => this.mintNftHandler(6)} class="cyber_button">
+          <button onClick={() => this.mintNftHandler(6)} className="cyber_button">
             <span aria-hidden>Darklink</span>
-            <img id="darklink-planet" src="https://github.com/mcruzvas/react_web3/blob/home-page-css/public/planets/darklink4.png?raw=true"></img>
+            <span aria-hidden className="cyber_button__tag">Population:{this.state.Darklink_planets_population}</span>
+            <img alt="" id="darklink-planet" src="https://github.com/mcruzvas/react_web3/blob/home-page-css/public/planets/darklink4.png?raw=true"></img>
           </button>
           
       </div>

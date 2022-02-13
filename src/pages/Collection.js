@@ -128,7 +128,7 @@ class Collection extends Component {
             value={this.state.boost_value}
             onChange={(e) => this.setState({boost_value: e.target.value})}
           />
-          <button class="button-82-pushable" role="button">
+          <button class="button-82-pushable">
             <span class="button-82-shadow"></span>
             <span class="button-82-edge"></span>
             <span class="button-82-front text">
