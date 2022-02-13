@@ -9,11 +9,15 @@
     margin-right: 350px;
 }
 #robot-planet{
-    width: 500px;
+    width: 400px;
     margin-top: -310px;
 }
 #god-planet{
     margin-left: -200px;
+    margin-top: -175px;
+}
+#superhuman-planet{
+    margin-left: 200px;
     margin-top: -175px;
 }
 .cyber_button{
