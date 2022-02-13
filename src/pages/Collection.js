@@ -12,6 +12,7 @@ class Collection extends Component {
         collection_tokenStars: [],
         collection_tokenClass: [],
         collection_tokenElement: [],
+        collection_tokenAttack: [],
         boost_value: ''
       };
 
@@ -28,50 +29,45 @@ class Collection extends Component {
         let data = await nftContract.Hero_inAccount();
         // get NFT metadata
         for(var i = 0;i<=data.length-1;i++){
-          const array_nft_attributes = [];
-          array_nft_attributes.push(data[i].toString())
-          //0-get tokenId => data[i].toNumber()
-          //1-get tokenImg => jsonData.image
-          //2-get tokenName => nftContract.getNFT(data[i].toNumber())
+          const tokenId = data[i].toString()
+  
           nftContract.uri(data[i]).then(urlValue => {
             //console.log(urlValue)
             fetch(urlValue)
                 .then(response => response.json())
                 .then((jsonData) => {
-                  //console.log(jsonData)
-                  array_nft_attributes.push(jsonData.image)
-                  array_nft_attributes.push(jsonData.name)
-                  array_nft_attributes.push(jsonData.properties.stars)
-                  array_nft_attributes.push(jsonData.properties.class)
-                  array_nft_attributes.push(jsonData.properties.element)
-
-
                   //update local storage listed by tokenId
                   //id
                   const previous_state_tokenId = this.state.collection_tokenId;
-                  const updated_state_nft_tokenId = previous_state_tokenId.concat(array_nft_attributes[0])
+                  const updated_state_nft_tokenId = previous_state_tokenId.concat(tokenId)
                   this.setState({collection_tokenId: updated_state_nft_tokenId})
                   //img
                   const previous_state_tokenImg= this.state.collection_tokenImg;
-                  const updated_state_nft_tokenImg = previous_state_tokenImg.concat(array_nft_attributes[1])
+                  const updated_state_nft_tokenImg = previous_state_tokenImg.concat(jsonData.image)
                   this.setState({collection_tokenImg: updated_state_nft_tokenImg})
                   //name
                   const previous_state_tokenName = this.state.collection_tokenName;
-                  const updated_state_nft_tokenName = previous_state_tokenName.concat(array_nft_attributes[2])
+                  const updated_state_nft_tokenName = previous_state_tokenName.concat(jsonData.name)
                   this.setState({collection_tokenName: updated_state_nft_tokenName})
                   //stars
                   const previous_state_stars = this.state.collection_tokenStars;
-                  const updated_state_nft_stars = previous_state_stars.concat(array_nft_attributes[3])
+                  const updated_state_nft_stars = previous_state_stars.concat(jsonData.properties.stars)
                   this.setState({collection_tokenStars: updated_state_nft_stars})
                   //class
                   const previous_state_class = this.state.collection_tokenClass;
-                  const updated_state_nft_class = previous_state_class.concat(array_nft_attributes[4])
+                  const updated_state_nft_class = previous_state_class.concat(jsonData.properties.class)
                   this.setState({collection_tokenClass: updated_state_nft_class})
                   //element
                   const previous_state_element = this.state.collection_tokenElement;
-                  const updated_state_nft_element = previous_state_element.concat(array_nft_attributes[5])
+                  const updated_state_nft_element = previous_state_element.concat(jsonData.properties.element)
                   this.setState({collection_tokenElement: updated_state_nft_element})
                 })
+          })
+          nftContract.getNFT_attack(data[i]).then(result => {
+            //attack
+            const previous_state_attack = this.state.collection_tokenAttack;
+            const updated_state_nft_attack = previous_state_attack.concat(parseInt(result._hex.toString()))
+            this.setState({collection_tokenAttack: updated_state_nft_attack})
           })
         }
   
@@ -128,10 +124,10 @@ class Collection extends Component {
             value={this.state.boost_value}
             onChange={(e) => this.setState({boost_value: e.target.value})}
           />
-          <button class="button-82-pushable">
-            <span class="button-82-shadow"></span>
-            <span class="button-82-edge"></span>
-            <span class="button-82-front text">
+          <button className="button-82-pushable">
+            <span className="button-82-shadow"></span>
+            <span className="button-82-edge"></span>
+            <span className="button-82-front text">
               BOOST ✪
             </span>
           </button>
@@ -150,38 +146,39 @@ class Collection extends Component {
   render(){
     return (
         <div className='collection-page'>
-            <h1 class="neon-title-app">NFT Galaxy</h1>
+            <h1 className="neon-title-app">NFT Galaxy</h1>
 
             <div >
               {this.upgradeNftButton()}
             </div>
 
-            <div class="wrap">
+            <div className="wrap">
         
             {this.state.collection_tokenImg.map(
                 (item,i) => {
                 return(
                     <div key={i}>
-                      <div id="container" class="box">
+                      <div id="container" className="box">
                           <div id="block-name">
-                          <div class="nft_name_title" >
+                          <div className="nft_name_title" >
                               {/*Name*/}
                               <a target = "_blank" 
 rel = "noopener noreferrer" href={"https://testnets.opensea.io/assets/"+contractAddress+"/"+this.state.collection_tokenId[i]}>{this.state.collection_tokenName ? this.state.collection_tokenName[i] : ""}</a>
                               <p>{this.state.collection_tokenId[i]}*</p>
                           </div>
-                          </div>
-                          <div class="boxInner">
-                          {/*Image*/}
-                          <img alt={this.state.collection_tokenId[i]} class="image_nft" src={item} ></img>
-                          </div>
-                          <div class="middle">
-                          {/*Stars*/}
-                          <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">{this.state.collection_tokenStars ? this.printStars(this.state.collection_tokenStars[i]) : ""}</div>
-                          {/*Class*/}
-                          <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">{this.state.collection_tokenClass ? this.state.collection_tokenClass[i] : ""}</div>
-                          {/*Attributes*/}
-                          <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">{this.state.collection_tokenElement ? this.state.collection_tokenElement[i] : ""}</div>
+                            </div>
+                            <div className="boxInner">
+                            {/*Image*/}
+                            <img alt={this.state.collection_tokenId[i]} className="image_nft" src={item} ></img>
+                            </div>
+                            <div className="middle">
+                            {/*Stars*/}
+                            <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Stars: {this.state.collection_tokenStars ? this.printStars(this.state.collection_tokenStars[i]) : ""}</div>
+                            {/*Class*/}
+                            <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Class: {this.state.collection_tokenClass ? this.state.collection_tokenClass[i] : ""}</div>
+                            {/*Attributes*/}
+                            <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Element: {this.state.collection_tokenElement ? this.state.collection_tokenElement[i] : ""}</div>
+                            <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Attack: {this.state.collection_tokenElement ? this.state.collection_tokenAttack[i] : ""}</div>
                           </div>
                       </div>
                     </div>

@@ -13,7 +13,37 @@ class Home extends React.Component {
     Darklink_planets_population: 0
   }
   async mintNftHandler(class_id){
+    try {
+      const { ethereum } = window;
 
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
+
+        console.log("Initialize payment");
+        let nftTxn = await nftContract.heroMint(class_id);
+
+        console.log("Mining... please wait");
+        await nftTxn.wait();
+
+        console.log(`Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`);
+        
+        nftContract.Hero_inAccount().then(result => {
+          //console.log(result[result.length-1]._hex)
+          alert("You minted Hero Id: "+result[result.length-1]._hex)
+        })
+
+
+      } else {
+        console.log("Ethereum object does not exist");
+      }
+      
+      window.location.reload(false);
+
+    } catch (err) {
+      console.log(err);
+    }
   }
   getPopulation(class_id){
     try {
@@ -28,17 +58,24 @@ class Home extends React.Component {
           switch(class_id){
             case 1: 
               this.setState({Robot_planets_population: result._hex})
+              break;
             case 2:
               this.setState({God_planets_population: result._hex})
+              break;
             case 3:
               this.setState({Superhuman_planets_population: result._hex})
+              break;
             case 4:
               this.setState({Alien_planets_population: result._hex})
+              break;
             case 5:
               this.setState({Animal_planets_population: result._hex})
+              break;
             case 6:
               this.setState({Darklink_planets_population: result._hex})
-
+              break;
+            default:
+              break;
           }
           //console.log(result._hex)
         })
