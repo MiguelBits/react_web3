@@ -1,9 +1,7 @@
 import React from 'react'
 
-import {contractABI} from '../contracts/contract_abi';
+import {contractAddress, contractABI} from '../contracts/contract_abi';
 import { ethers } from 'ethers';
-
-const contractAddress = "0x1052eb421886edCf02c1F7418188258E6af6a70A";
 
 class Home extends React.Component {
   state = {
