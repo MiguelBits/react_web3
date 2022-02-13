@@ -18,7 +18,6 @@ class Collection extends Component {
 
   
     collectionNftHandler = async () => {
-      //console.log("handling nft collection")
       const { ethereum } = window;
   
       if (ethereum) {
