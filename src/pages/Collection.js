@@ -6,7 +6,6 @@ import { Component } from 'react/cjs/react.production.min';
 
 class Collection extends Component {
     state = {
-        currentAccount: null,
         collection_tokenId: [],
         collection_tokenName: [],
         collection_tokenImg: [],
@@ -15,55 +14,7 @@ class Collection extends Component {
         collection_tokenElement: [],
         boost_value: ''
       };
-    
-    
-    checkWalletIsConnected = async () => {
-      const { ethereum } = window;
-  
-      if (!ethereum) {
-        console.log("Make sure you have Metamask installed!");
-        return;
-      } else {
-        console.log("Wallet exists! We're ready to go!")
-      }
-  
-      const accounts = await ethereum.request({ method: 'eth_accounts' });
-  
-      if (accounts.length !== 0) {
-        const account = accounts[0];
-        console.log("Found an authorized account: ", account);
-        this.setState({currentAccount: account});
-      } else {
-        console.log("No authorized account found");
-      }
-      
-    }
-  
-    connectWalletHandler = async () => {
-      const { ethereum } = window;
-  
-      if (!ethereum) {
-        alert("Please install Metamask!");
-      }
-  
-      try {
-        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-        console.log("Found an account! Address: ", accounts[0]);
-        this.setState({accounts:accounts[0]});
-        window.location.reload(false);
-      } catch (err) {
-        console.log(err)
-      }
-      
-    }
-  
-    connectWalletButton = () => {
-      return (
-        <button onClick={this.connectWalletHandler} className='cta-button connect-wallet-button'>
-          Connect Wallet
-        </button>
-      )
-    }
+
   
     collectionNftHandler = async () => {
       //console.log("handling nft collection")
@@ -190,7 +141,7 @@ class Collection extends Component {
     )
   }
   componentDidMount = () => {
-    this.checkWalletIsConnected();
+
     //nft collection array
     this.collectionNftHandler()
   };
@@ -202,7 +153,7 @@ class Collection extends Component {
             <h1 class="neon-title-app">NFT Galaxy</h1>
 
             <div >
-            {this.state.currentAccount ? this.upgradeNftButton() : this.connectWalletButton()}
+              {this.upgradeNftButton()}
             </div>
 
             <div class="wrap">
