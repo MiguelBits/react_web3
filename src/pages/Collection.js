@@ -13,16 +13,68 @@ class Collection extends Component {
         collection_tokenClass: [],
         collection_tokenElement: [],
         collection_tokenAttack: [],
+        collection_tokenStake:[],
+        collection_stakedTimeLeft: [],
         boost_value: ''
       };
-    isStaked(id){
-      return false;
+    addZeroTimeLeft(){
+      //time left is 0
+      const previous_state_element = this.state.collection_stakedTimeLeft;
+      const updated_state_nft_element = previous_state_element.concat(0)
+      this.setState({collection_stakedTimeLeft: updated_state_nft_element})
     }
-    stake(id){
-      return 1
+    async getStakedTimedLeft(id){
+      const { ethereum } = window;
+
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
+        nftContract.getStakedTimedLeft(id).then(result => {
+            console.log(parseInt(result._hex.toString()))
+            //time left result
+            const previous_state_element = this.state.collection_stakedTimeLeft;
+            const updated_state_nft_element = previous_state_element.concat(parseInt(result._hex.toString()))
+            this.setState({collection_stakedTimeLeft: updated_state_nft_element})
+        })       
+
+      }else{
+        console.log("error")
+      }
     }
-    unstake(id){
-      return 1
+    async stake(id){
+      const { ethereum } = window;
+      //console.log(id)
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
+  
+        await nftContract.stake(id);
+        
+
+      }else{
+        console.log("Ethereum object does not exist");
+      }
+      window.location.reload(false);
+    }
+    async unstake(id){
+      const { ethereum } = window;
+  
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
+        try{
+          await nftContract.unstake(id);
+        }catch{
+          alert("Error in operation")
+        }
+        
+      }else{
+        console.log("Ethereum object does not exist");
+      }
+
     }
     collectionNftHandler = async () => {
       const { ethereum } = window;
@@ -36,7 +88,8 @@ class Collection extends Component {
         // get NFT metadata
         for(var i = 0;i<=data.length-1;i++){
           const tokenId = data[i].toString()
-  
+          //add staked time if there is one
+          
           nftContract.uri(data[i]).then(urlValue => {
             //console.log(urlValue)
             fetch(urlValue)
@@ -76,6 +129,12 @@ class Collection extends Component {
             const previous_state_stars = this.state.collection_tokenStars;
             const updated_state_nft_stars = previous_state_stars.concat(parseInt(result._hex.toString()))
             this.setState({collection_tokenStars: updated_state_nft_stars})
+          })
+          nftContract.getNFT_staked(data[i]).then(isStaked => {
+            //staked
+            const previous_state_stake = this.state.collection_tokenStake;
+            const updated_state_nft_stake = previous_state_stake.concat(isStaked)
+            this.setState({collection_tokenStake: updated_state_nft_stake})
           })
         }
   
@@ -145,9 +204,9 @@ class Collection extends Component {
     )
   }
   componentDidMount = () => {
-
     //nft collection array
     this.collectionNftHandler()
+    this.setState({collection_stakedTimeLeft:[0,2,34,69]})
   };
 
 
@@ -188,8 +247,10 @@ rel = "noopener noreferrer" href={"https://testnets.opensea.io/assets/"+contract
                             <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Element: {this.state.collection_tokenElement ? this.state.collection_tokenElement[i] : ""}</div>
                             <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Attack: {this.state.collection_tokenAttack ? this.state.collection_tokenAttack[i] : ""}</div>
                             <p>-------</p>
-                            {
-                            this.isStaked(this.state.collection_tokenId[i]) ? <button onClick={() => this.stake(this.state.collection_tokenId[i])} className='inline-flex px-2 text-xl font-semibold text-white-100 bg-red-500 rounded-full'> UnStake </button>:(<button onClick={() => this.unstake(this.state.collection_tokenId[i])} className='inline-flex px-2 text-xl font-semibold text-white-100 bg-red-500 rounded-full'> Stake </button>)
+                            {//staked
+                            !this.state.collection_tokenStake[i] ? 
+                            <button onClick={() => this.stake(this.state.collection_tokenId[i])} className='inline-flex px-2 text-xl font-semibold text-white-100 bg-red-500 rounded-full'> Stake </button>:
+                            (<button onClick={() => this.unstake(this.state.collection_tokenId[i])} className='inline-flex px-2 text-xl font-semibold text-white-100 bg-purple-700 rounded-full'>{this.state.collection_stakedTimeLeft[i] > 0 ? this.state.collection_stakedTimeLeft[i]:"Unstake"}</button>)
                             }     
                           </div>
                       </div>

@@ -8,21 +8,7 @@ class Battle extends React.Component {
     timeLeft: 0,
     staked_id: 1,
   }
-  getStakedTimeLeft(id) {
-    const { ethereum } = window;
   
-    if (ethereum) {
-      const provider = new ethers.providers.Web3Provider(ethereum);
-      const signer = provider.getSigner();
-      const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
-      nftContract.getStakedTimedLeft(id).then(result=>{
-        this.setState({timeLeft: parseInt(result._hex.toString())})
-      })
-    } 
-    else {
-      console.log("Ethereum object does not exist");
-    }
-  }
   componentDidMount = () => {
   }
 
@@ -31,7 +17,7 @@ class Battle extends React.Component {
       <div className='battle-page'>
         <div id="staked-time">
             <img alt="clock" src="https://github.com/mcruzvas/react_web3/blob/battle_staked-version1/public/clock2.png?raw=true"/>
-            <p>{this.state.timeLeft}</p>
+            <p>0</p>
         </div>
         
       </div>
