@@ -17,31 +17,7 @@ class Collection extends Component {
         collection_stakedTimeLeft: [],
         boost_value: ''
       };
-    addZeroTimeLeft(){
-      //time left is 0
-      const previous_state_element = this.state.collection_stakedTimeLeft;
-      const updated_state_nft_element = previous_state_element.concat(0)
-      this.setState({collection_stakedTimeLeft: updated_state_nft_element})
-    }
-    async getStakedTimedLeft(id){
-      const { ethereum } = window;
-
-      if (ethereum) {
-        const provider = new ethers.providers.Web3Provider(ethereum);
-        const signer = provider.getSigner();
-        const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
-        nftContract.getStakedTimedLeft(id).then(result => {
-            console.log(parseInt(result._hex.toString()))
-            //time left result
-            const previous_state_element = this.state.collection_stakedTimeLeft;
-            const updated_state_nft_element = previous_state_element.concat(parseInt(result._hex.toString()))
-            this.setState({collection_stakedTimeLeft: updated_state_nft_element})
-        })       
-
-      }else{
-        console.log("error")
-      }
-    }
+  
     async stake(id){
       const { ethereum } = window;
       //console.log(id)
@@ -65,11 +41,9 @@ class Collection extends Component {
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
         const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
-        try{
-          await nftContract.unstake(id);
-        }catch{
-          alert("Error in operation")
-        }
+        
+        await nftContract.unstake(id);
+        
         
       }else{
         console.log("Ethereum object does not exist");
@@ -130,15 +104,22 @@ class Collection extends Component {
             const updated_state_nft_stars = previous_state_stars.concat(parseInt(result._hex.toString()))
             this.setState({collection_tokenStars: updated_state_nft_stars})
           })
-          nftContract.getNFT_staked(data[i]).then(isStaked => {
+          nftContract.getNFT_staked(data[i]).then(result => {
             //staked
             const previous_state_stake = this.state.collection_tokenStake;
-            const updated_state_nft_stake = previous_state_stake.concat(isStaked)
+            const updated_state_nft_stake = previous_state_stake.concat(result);
             this.setState({collection_tokenStake: updated_state_nft_stake})
           })
+          nftContract.getStakedTimedLeft(data[i]).then(result=>{
+            //time left result
+            console.log(parseInt(result._hex.toString()))
+            const previous_state_element = this.state.collection_stakedTimeLeft;
+            const updated_state_nft_element = previous_state_element.concat(parseInt(result._hex.toString()))
+            this.setState({collection_stakedTimeLeft: updated_state_nft_element})
+          })
         }
-  
-      } else {
+      } 
+      else {
         console.log("Ethereum object does not exist");
       }
   }
@@ -206,7 +187,8 @@ class Collection extends Component {
   componentDidMount = () => {
     //nft collection array
     this.collectionNftHandler()
-    this.setState({collection_stakedTimeLeft:[0,2,34,69]})
+    //TODO
+    //this.getStakedTimedLeft()
   };
 
 

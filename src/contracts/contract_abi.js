@@ -1,4 +1,4 @@
-export const contractAddress = "0x0C274ceDa5852399aE19DeeD354219737A04C129";
+export const contractAddress = "0x3b349779425Fb4A4Ac99aDeF95D6cee54FE56DB4";
 export const contractABI = [
 	{
 		"anonymous": false,
@@ -116,6 +116,25 @@ export const contractABI = [
 			}
 		],
 		"name": "URI",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "bool",
+				"name": "status",
+				"type": "bool"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "hasStakedChanged",
 		"type": "event"
 	},
 	{
@@ -242,6 +261,11 @@ export const contractABI = [
 		"type": "function"
 	},
 	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -253,11 +277,6 @@ export const contractABI = [
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
-	},
-	{
-		"inputs": [],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
 	},
 	{
 		"inputs": [
