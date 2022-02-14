@@ -1,4 +1,5 @@
 import React from 'react'
+import './../css/Collection.css';
 
 import {contractAddress, contractABI} from '../contracts/contract_abi';
 import { ethers } from 'ethers';
@@ -42,13 +43,29 @@ class Collection extends Component {
         const signer = provider.getSigner();
         const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
         
-        await nftContract.unstake(id);
-        
+        try{
+          await nftContract.unstake(id);
+        }catch(e){
+          alert("Need to wait more time!")
+        }
         
       }else{
         console.log("Ethereum object does not exist");
       }
 
+    }
+    stakedTimeLeft(i){
+      let time = this.state.collection_stakedTimeLeft[i]
+      
+      if(this.state.collection_stakedTimeLeft[i] != 0){
+        return (<div>
+                  <p id="unstake" className='getStakedTimeLeft'>{time}</p>
+                  <img id="clock-stakedTimeLeft" src="https://github.com/mcruzvas/react_web3/blob/battle_staked-version1/public/clock2.png?raw=true"></img>
+                </div>)
+      } else{
+        return ""
+      }
+      
     }
     collectionNftHandler = async () => {
       const { ethereum } = window;
@@ -187,8 +204,7 @@ class Collection extends Component {
   componentDidMount = () => {
     //nft collection array
     this.collectionNftHandler()
-    //TODO
-    //this.getStakedTimedLeft()
+    //TODO event to refresh when staked
   };
 
 
@@ -232,7 +248,7 @@ rel = "noopener noreferrer" href={"https://testnets.opensea.io/assets/"+contract
                             {//staked
                             !this.state.collection_tokenStake[i] ? 
                             <button onClick={() => this.stake(this.state.collection_tokenId[i])} className='inline-flex px-2 text-xl font-semibold text-white-100 bg-red-500 rounded-full'> Stake </button>:
-                            (<button onClick={() => this.unstake(this.state.collection_tokenId[i])} className='inline-flex px-2 text-xl font-semibold text-white-100 bg-purple-700 rounded-full'>{this.state.collection_stakedTimeLeft[i] > 0 ? this.state.collection_stakedTimeLeft[i]:"Unstake"}</button>)
+                            (<button onClick={() => this.unstake(this.state.collection_tokenId[i])} className='inline-flex px-2 text-xl font-semibold text-white-100 bg-purple-700 rounded-full' id="unstake">{this.state.collection_stakedTimeLeft[i] > 0 ? this.stakedTimeLeft(i):"Unstake"}</button>)
                             }     
                           </div>
                       </div>
