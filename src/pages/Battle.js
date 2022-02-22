@@ -5,11 +5,29 @@ import './../css/Battle.css';
 
 class Battle extends React.Component {
   state = {
-    timeLeft: 0,
-    staked_id: 1,
+    stakedPopulation: 0,
+    stakedIDs: []
   }
+  getStakedPopulation = () => {
+    const { ethereum } = window;
+      //console.log(id)
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
   
+        nftContract.getStakedPopulation().then(result => {
+          this.setState({stakedPopulation:result.length})
+          this.setState({stakedIDs:result})
+        });
+        
+
+      }else{
+        console.log("Ethereum object does not exist");
+      }
+  }
   componentDidMount = () => {
+    this.getStakedPopulation();
   }
   upgradeNftButton = (frase) => {
     return (
@@ -62,10 +80,10 @@ class Battle extends React.Component {
               {this.upgradeNftButton("Enemy Id")}
             </div>
 
-            <button onClick={() => this.mintNftHandler(1)} className="cyber_button">
-              <span aria-hidden>Robot</span>
-              <span aria-hidden className="cyber_button__tag">Population:{this.state.Robot_planets_population}</span>
-              <img alt="" id="robot-planet" src="https://github.com/mcruzvas/react_web3/blob/main/public/planets/robot.png?raw=true"></img>
+            <button onClick={() => this.mintNftHandler(1)} className="battle_cyber_button">
+              <span aria-hidden>Duel</span>
+              <span aria-hidden className="battle_cyber_button__tag">Staked Population:{this.state.stakedPopulation}</span>
+              <img alt="" id="versus" src="https://github.com/mcruzvas/react_web3/blob/battle_staked-version1/public/planets/vs.png?raw=true"></img>
             </button>
         </div>
       </div>

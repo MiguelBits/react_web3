@@ -60,7 +60,7 @@ class Collection extends Component {
       if(this.state.collection_stakedTimeLeft[i] !== 0){
         return (<div>
                   <p id="unstake" className='getStakedTimeLeft'>{time}</p>
-                  <img id="clock-stakedTimeLeft" src="https://github.com/mcruzvas/react_web3/blob/battle_staked-version1/public/clock2.png?raw=true"></img>
+                  <img id="clock-stakedTimeLeft" alt="clock" src="https://github.com/mcruzvas/react_web3/blob/battle_staked-version1/public/clock2.png?raw=true"></img>
                 </div>)
       } else{
         return ""
