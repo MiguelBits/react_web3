@@ -105,36 +105,36 @@ class Home extends React.Component {
           <button onClick={() => this.mintNftHandler(1)} className="cyber_button">
             <span aria-hidden>Robot</span>
             <span aria-hidden className="cyber_button__tag">Population:{this.state.Robot_planets_population}</span>
-            <img alt="" id="robot-planet" src="https://github.com/mcruzvas/react_web3/blob/home-page-css/public/planets/robot.png?raw=true"></img>
+            <img alt="" id="robot-planet" src="https://github.com/mcruzvas/react_web3/blob/main/public/planets/robot.png?raw=true"></img>
           </button>
           <p></p>
           <button onClick={() => this.mintNftHandler(2)} className="cyber_button">
             <span aria-hidden>God</span>
             <span aria-hidden className="cyber_button__tag">Population:{this.state.God_planets_population}</span>
-            <img alt="" id="god-planet" src="https://github.com/mcruzvas/react_web3/blob/home-page-css/public/planets/god.png?raw=true"></img>
+            <img alt="" id="god-planet" src="https://github.com/mcruzvas/react_web3/blob/main/public/planets/god.png?raw=true"></img>
           </button>
           
           <button onClick={() => this.mintNftHandler(3)} className="cyber_button">
             <span aria-hidden>Superhuman</span>
             <span aria-hidden className="cyber_button__tag">Population:{this.state.Superhuman_planets_population}</span>
-            <img alt="" id="superhuman-planet" src="https://github.com/mcruzvas/react_web3/blob/home-page-css/public/planets/superhuman2.png?raw=true"></img>
+            <img alt="" id="superhuman-planet" src="https://github.com/mcruzvas/react_web3/blob/main/public/planets/superhuman2.png?raw=true"></img>
           </button>
           
           <button onClick={() => this.mintNftHandler(4)} className="cyber_button">
             <span aria-hidden>Alien</span>
             <span aria-hidden className="cyber_button__tag">Population:{this.state.Alien_planets_population}</span>
-            <img alt="" id="alien-planet" src="https://github.com/mcruzvas/react_web3/blob/home-page-css/public/planets/alien.png?raw=true"></img>
+            <img alt="" id="alien-planet" src="https://github.com/mcruzvas/react_web3/blob/main/public/planets/alien.png?raw=true"></img>
           </button>
           <button onClick={() => this.mintNftHandler(5)} className="cyber_button">
             <span aria-hidden>Animal</span>
             <span aria-hidden className="cyber_button__tag">Population:{this.state.Animal_planets_population}</span>
-            <img alt="" id="animal-planet" src="https://github.com/mcruzvas/react_web3/blob/home-page-css/public/planets/animal.png?raw=true"></img>
+            <img alt="" id="animal-planet" src="https://github.com/mcruzvas/react_web3/blob/main/public/planets/animal.png?raw=true"></img>
           </button>
           
           <button onClick={() => this.mintNftHandler(6)} className="cyber_button">
             <span aria-hidden>Darklink</span>
             <span aria-hidden className="cyber_button__tag">Population:{this.state.Darklink_planets_population}</span>
-            <img alt="" id="darklink-planet" src="https://github.com/mcruzvas/react_web3/blob/home-page-css/public/planets/darklink4.png?raw=true"></img>
+            <img alt="" id="darklink-planet" src="https://github.com/mcruzvas/react_web3/blob/main/public/planets/darklink4.png?raw=true"></img>
           </button>
           
       </div>

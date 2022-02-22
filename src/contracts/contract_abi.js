@@ -1,5 +1,10 @@
-export const contractAddress = "0x6Fa62e70ae691983eF82ef1F2691dA148BaE39eC";
+export const contractAddress = "0x7449863b1f14aD753F1115d0368fB6bA742BE31c";
 export const contractABI = [
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
 	{
 		"anonymous": false,
 		"inputs": [
@@ -119,145 +124,144 @@ export const contractABI = [
 		"type": "event"
 	},
 	{
+		"anonymous": false,
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "class",
-				"type": "uint256"
-			}
-		],
-		"name": "heroMint",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "itemNo",
-				"type": "uint256"
-			}
-		],
-		"name": "itemMint",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256[]",
-				"name": "ids",
-				"type": "uint256[]"
-			},
-			{
-				"internalType": "uint256[]",
-				"name": "amounts",
-				"type": "uint256[]"
-			},
-			{
-				"internalType": "bytes",
-				"name": "data",
-				"type": "bytes"
-			}
-		],
-		"name": "safeBatchTransferFrom",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "id",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			},
-			{
-				"internalType": "bytes",
-				"name": "data",
-				"type": "bytes"
-			}
-		],
-		"name": "safeTransferFrom",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "operator",
-				"type": "address"
-			},
-			{
+				"indexed": false,
 				"internalType": "bool",
-				"name": "approved",
+				"name": "status",
 				"type": "bool"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
 			}
 		],
-		"name": "setApprovalForAll",
-		"outputs": [],
+		"name": "hasStakedChanged",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "sender",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "opponent",
+				"type": "uint256"
+			}
+		],
+		"name": "new_battle",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "enemyId",
+				"type": "uint256"
+			}
+		],
+		"name": "Duel",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "playerOne",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "playerTwo",
+						"type": "uint256"
+					},
+					{
+						"internalType": "enum Galaxy_heroes.GameOutcome",
+						"name": "outcome",
+						"type": "uint8"
+					}
+				],
+				"internalType": "struct Galaxy_heroes.Game_Duel",
+				"name": "",
+				"type": "tuple"
+			}
+		],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "id",
-				"type": "uint256"
-			}
-		],
-		"name": "stake",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
 			{
 				"internalType": "uint256",
-				"name": "id",
+				"name": "",
 				"type": "uint256"
 			}
 		],
-		"name": "unstake",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"name": "Hero_AtAddress",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"inputs": [],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
+		"name": "Hero_inAccount",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "arr",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "Item_AtAddress",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
 		"inputs": [
@@ -324,15 +328,25 @@ export const contractABI = [
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "item_inCollectionId",
+				"name": "",
 				"type": "uint256"
 			}
 		],
-		"name": "getItem_inAccount_byCollectionId",
+		"name": "games_by_id",
 		"outputs": [
 			{
-				"internalType": "enum Galaxy_heroes.Item_Class",
-				"name": "class",
+				"internalType": "uint256",
+				"name": "playerOne",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "playerTwo",
+				"type": "uint256"
+			},
+			{
+				"internalType": "enum Galaxy_heroes.GameOutcome",
+				"name": "outcome",
 				"type": "uint8"
 			}
 		],
@@ -435,6 +449,19 @@ export const contractABI = [
 		"type": "function"
 	},
 	{
+		"inputs": [],
+		"name": "getStakedPopulation",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "pop",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -472,77 +499,6 @@ export const contractABI = [
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "Hero_AtAddress",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "hero_collection",
-		"outputs": [
-			{
-				"internalType": "enum Galaxy_heroes.Hero_Class",
-				"name": "class",
-				"type": "uint8"
-			},
-			{
-				"internalType": "uint256",
-				"name": "stars",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "attack",
-				"type": "uint256"
-			},
-			{
-				"internalType": "bool",
-				"name": "staked",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "Hero_inAccount",
-		"outputs": [
-			{
-				"internalType": "uint256[]",
-				"name": "arr",
-				"type": "uint256[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"inputs": [],
 		"name": "heroBalance",
 		"outputs": [
@@ -553,6 +509,19 @@ export const contractABI = [
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "class",
+				"type": "uint256"
+			}
+		],
+		"name": "heroMint",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -611,6 +580,40 @@ export const contractABI = [
 	{
 		"inputs": [
 			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "hero_collection",
+		"outputs": [
+			{
+				"internalType": "enum Galaxy_heroes.Hero_Class",
+				"name": "class",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint256",
+				"name": "stars",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "attack",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "staked",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "address",
 				"name": "account",
 				"type": "address"
@@ -635,35 +638,17 @@ export const contractABI = [
 	{
 		"inputs": [
 			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			}
+		],
+		"name": "ownerOf",
+		"outputs": [
+			{
 				"internalType": "address",
 				"name": "",
 				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "Item_AtAddress",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "Item_inAccount",
-		"outputs": [
-			{
-				"internalType": "uint256[]",
-				"name": "arr",
-				"type": "uint256[]"
 			}
 		],
 		"stateMutability": "view",
@@ -672,98 +657,98 @@ export const contractABI = [
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "Item_To_RarityValue",
-		"outputs": [
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
 			{
-				"internalType": "enum Galaxy_heroes.Item_Rarity",
-				"name": "",
-				"type": "uint8"
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "ids",
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "amounts",
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "bytes",
+				"name": "data",
+				"type": "bytes"
 			}
 		],
-		"stateMutability": "view",
+		"name": "safeBatchTransferFrom",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "itemHerb_Balance",
-		"outputs": [
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
 			{
 				"internalType": "uint256",
-				"name": "items",
+				"name": "id",
 				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bytes",
+				"name": "data",
+				"type": "bytes"
 			}
 		],
-		"stateMutability": "view",
+		"name": "safeTransferFrom",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "itemMinerium_Balance",
-		"outputs": [
+		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "items",
-				"type": "uint256"
+				"internalType": "address",
+				"name": "operator",
+				"type": "address"
+			},
+			{
+				"internalType": "bool",
+				"name": "approved",
+				"type": "bool"
 			}
 		],
-		"stateMutability": "view",
+		"name": "setApprovalForAll",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "itemMystic_Balance",
-		"outputs": [
+		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "items",
+				"name": "id",
 				"type": "uint256"
 			}
 		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "itemNova_Balance",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "items",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "itemPotion_Balance",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "items",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "itemWeapon_Balance",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "items",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
+		"name": "stake",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -802,6 +787,19 @@ export const contractABI = [
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			}
+		],
+		"name": "unstake",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{

@@ -1,4 +1,5 @@
 import React from 'react'
+import './../css/Collection.css';
 
 import {contractAddress, contractABI} from '../contracts/contract_abi';
 import { ethers } from 'ethers';
@@ -13,12 +14,60 @@ class Collection extends Component {
         collection_tokenClass: [],
         collection_tokenElement: [],
         collection_tokenAttack: [],
+        collection_tokenStake:[],
+        collection_stakedTimeLeft: [],
         boost_value: ''
       };
-
   
+    async stake(id){
+      const { ethereum } = window;
+      //console.log(id)
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
+  
+        await nftContract.stake(id);
+        
+
+      }else{
+        console.log("Ethereum object does not exist");
+      }
+      window.location.reload(false);
+    }
+    async unstake(id){
+      const { ethereum } = window;
+  
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
+        
+        try{
+          await nftContract.unstake(id);
+        }catch(e){
+          alert("Need to wait more time!")
+        }
+        
+      }else{
+        console.log("Ethereum object does not exist");
+      }
+
+    }
+    stakedTimeLeft(i){
+      let time = this.state.collection_stakedTimeLeft[i]
+      
+      if(this.state.collection_stakedTimeLeft[i] !== 0){
+        return (<div>
+                  <p id="unstake" className='getStakedTimeLeft'>{time}</p>
+                  <img id="clock-stakedTimeLeft" alt="clock" src="https://github.com/mcruzvas/react_web3/blob/battle_staked-version1/public/clock2.png?raw=true"></img>
+                </div>)
+      } else{
+        return ""
+      }
+      
+    }
     collectionNftHandler = async () => {
-      //console.log("handling nft collection")
       const { ethereum } = window;
   
       if (ethereum) {
@@ -30,7 +79,8 @@ class Collection extends Component {
         // get NFT metadata
         for(var i = 0;i<=data.length-1;i++){
           const tokenId = data[i].toString()
-  
+          //add staked time if there is one
+          
           nftContract.uri(data[i]).then(urlValue => {
             //console.log(urlValue)
             fetch(urlValue)
@@ -71,9 +121,22 @@ class Collection extends Component {
             const updated_state_nft_stars = previous_state_stars.concat(parseInt(result._hex.toString()))
             this.setState({collection_tokenStars: updated_state_nft_stars})
           })
+          nftContract.getNFT_staked(data[i]).then(result => {
+            //staked
+            const previous_state_stake = this.state.collection_tokenStake;
+            const updated_state_nft_stake = previous_state_stake.concat(result);
+            this.setState({collection_tokenStake: updated_state_nft_stake})
+          })
+          nftContract.getStakedTimedLeft(data[i]).then(result=>{
+            //time left result
+            console.log(parseInt(result._hex.toString()))
+            const previous_state_element = this.state.collection_stakedTimeLeft;
+            const updated_state_nft_element = previous_state_element.concat(parseInt(result._hex.toString()))
+            this.setState({collection_stakedTimeLeft: updated_state_nft_element})
+          })
         }
-  
-      } else {
+      } 
+      else {
         console.log("Ethereum object does not exist");
       }
   }
@@ -86,8 +149,8 @@ class Collection extends Component {
     //console.log(final_str)
     return final_str 
   }    
-  upgradeNftHandler = async (e: any) => {
-    e.preventDefault();
+  upgradeNftHandler = async () => {
+    
     try {
       const { ethereum } = window;
 
@@ -139,9 +202,9 @@ class Collection extends Component {
     )
   }
   componentDidMount = () => {
-
     //nft collection array
     this.collectionNftHandler()
+    //TODO event to refresh when staked
   };
 
 
@@ -167,13 +230,13 @@ class Collection extends Component {
                               <a target = "_blank" 
 rel = "noopener noreferrer" href={"https://testnets.opensea.io/assets/"+contractAddress+"/"+this.state.collection_tokenId[i]}>{this.state.collection_tokenName ? this.state.collection_tokenName[i] : ""}</a>
                               <p>{this.state.collection_tokenId[i]}*</p>
-                          </div>
                             </div>
-                            <div className="boxInner">
+                          </div>
+                          <div className="boxInner">
                             {/*Image*/}
                             <img alt={this.state.collection_tokenId[i]} className="image_nft" src={item} ></img>
-                            </div>
-                            <div className="middle">
+                          </div>
+                          <div className="middle">
                             {/*Stars*/}
                             <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Stars: {this.state.collection_tokenStars ? this.printStars(this.state.collection_tokenStars[i]) : ""}</div>
                             {/*Class*/}
@@ -181,6 +244,12 @@ rel = "noopener noreferrer" href={"https://testnets.opensea.io/assets/"+contract
                             {/*Attributes*/}
                             <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Element: {this.state.collection_tokenElement ? this.state.collection_tokenElement[i] : ""}</div>
                             <div id="description" className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Attack: {this.state.collection_tokenAttack ? this.state.collection_tokenAttack[i] : ""}</div>
+                            <p>-------</p>
+                            {//staked
+                            !this.state.collection_tokenStake[i] ? 
+                            <button onClick={() => this.stake(this.state.collection_tokenId[i])} className='inline-flex px-2 text-xl font-semibold text-white-100 bg-red-500 rounded-full'> Stake </button>:
+                            (<button onClick={() => this.unstake(this.state.collection_tokenId[i])} className='inline-flex px-2 text-xl font-semibold text-white-100 bg-purple-700 rounded-full' id="unstake">{this.state.collection_stakedTimeLeft[i] > 0 ? this.stakedTimeLeft(i):"Unstake"}</button>)
+                            }     
                           </div>
                       </div>
                     </div>
